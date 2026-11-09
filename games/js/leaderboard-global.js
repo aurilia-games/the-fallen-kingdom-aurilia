@@ -60,15 +60,35 @@ function renderClock() {
 }
 function solo() {
   clock.textContent = 'PRACTICE';
-  const api = window.AuriliaKnight;
-  const data = api?.getLeaderboardData?.();
-  const rankings = Array.isArray(data?.rankings) ? data.rankings : [];
+  // Solo progress lives in local profiles, not in the classroom-only
+  // six-hour leaderboard session. Read it directly without changing XP.
+  let profiles = {};
+  try {
+    profiles = JSON.parse(localStorage.getItem('aurilia.campaign.profiles.v2') || '{}');
+    if (!profiles || typeof profiles !== 'object' || Array.isArray(profiles)) profiles = {};
+  } catch (error) {
+    console.warn('[Aurilia] Unable to read local Solo profiles:', error);
+  }
+  const rankings = Object.entries(profiles)
+    .filter(([id, profile]) =>
+      profile && typeof profile.playerName === 'string' && profile.playerName.trim() &&
+      !id.startsWith('guest:') &&
+      localStorage.getItem(modeKey + id) !== 'classroom'
+    )
+    .map(([id, profile]) => ({
+      id,
+      name: profile.playerName.trim(),
+      xp: Math.max(0, Math.min(515, Number(profile.totalXP) || 0))
+    }))
+    .sort((a, b) => b.xp - a.xp || a.name.localeCompare(b.name) || a.id.localeCompare(b.id));
   tbody.replaceChildren();
-  if (!rankings.length) { status('No local Solo leaderboard records yet.'); return; }
-  rankings.slice().sort((a,b) => (Number(b.xp)||0)-(Number(a.xp)||0)).forEach((r,i) =>
-    addRow(i+1, r.name || 'Solo Knight', Number(r.xp)||0)
-  );
+  if (!rankings.length) {
+    status('No local Solo leaderboard records yet.');
+    return;
+  }
+  rankings.forEach((entry, index) => addRow(index + 1, entry.name, entry.xp));
 }
+
 async function start() {
   const activeId = localStorage.getItem(activeKey);
   const mode = activeId && localStorage.getItem(modeKey + activeId);
