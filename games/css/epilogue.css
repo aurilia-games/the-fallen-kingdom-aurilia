@@ -1,0 +1,1280 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --night: #070a12;
+  --gold: #c8a66b;
+  --bright: #f3dca6;
+  --ivory: #f5ead9;
+  --muted: #c5b9a6;
+  --line: rgba(219, 181, 111, 0.42);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--night);
+  color: var(--ivory);
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--bright);
+  outline-offset: 3px;
+}
+
+#epilogue {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* BACKGROUND */
+
+.world,
+#world-image,
+.world-shade,
+#gold-dust {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.world {
+  z-index: -1;
+  overflow: hidden;
+}
+
+#world-image {
+  background-image: url("../../assets/knight-returns.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transform: scale(1);
+  transition: opacity 0.6s ease;
+}
+
+#world-image.changing {
+  opacity: 0;
+}
+
+#world-image.camera-enter {
+  animation: cameraEnter 4.1s ease-in-out forwards;
+}
+
+@keyframes cameraEnter {
+  from {
+    transform: scale(1.04);
+  }
+
+  to {
+    transform: scale(1.24);
+  }
+}
+
+.world-shade {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(4, 7, 14, 0.53),
+      rgba(4, 7, 14, 0.2) 45%,
+      rgba(4, 7, 14, 0.7)
+    ),
+    radial-gradient(
+      ellipse at center,
+      transparent 30%,
+      rgba(3, 5, 12, 0.38)
+    );
+}
+
+.dust {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--bright);
+  box-shadow: 0 0 10px #f0c783;
+  animation: dustFloat var(--duration) linear infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes dustFloat {
+  from {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+
+  20%,
+  80% {
+    opacity: 0.55;
+  }
+
+  to {
+    transform: translateY(-15vh);
+    opacity: 0;
+  }
+}
+
+/* TOP BAR */
+
+.topbar {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 76px;
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.back-link,
+.sound-button {
+  padding: 11px 15px;
+  border: 1px solid var(--line);
+  background: rgba(7, 11, 20, 0.85);
+  color: var(--bright);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.chapter {
+  color: var(--gold);
+  font-family: "Cinzel", serif;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-align: center;
+}
+
+/* SCENES — ONE SCREEN ONLY */
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 84px 24px 20px;
+  overflow: hidden;
+}
+
+.scene.active {
+  display: flex;
+  animation: sceneAppear 0.8s ease both;
+}
+
+@keyframes sceneAppear {
+  from {
+    opacity: 0;
+    transform: translateY(9px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Cinzel", serif;
+  font-weight: 500;
+}
+
+h1 em,
+h2 em {
+  display: block;
+  color: var(--bright);
+  font-style: normal;
+}
+
+.gold-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  min-height: 45px;
+  max-width: 100%;
+  padding: 12px 20px;
+  border: 1px solid #e8c994;
+  background: linear-gradient(
+    115deg,
+    #ac864e,
+    #f1d9a4 48%,
+    #b58b50
+  );
+  color: #19140d;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  text-decoration: none;
+  text-align: center;
+  transition: filter 0.2s, transform 0.2s;
+}
+
+.gold-button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+/* ARRIVAL & RESTORATION */
+
+.hero-content {
+  width: min(780px, 100%);
+  text-align: center;
+  text-shadow: 0 5px 30px #000;
+}
+
+.hero-content h1 {
+  margin: 15px 0;
+  font-size: clamp(38px, 6vw, 75px);
+  line-height: 1.13;
+}
+
+.ornament {
+  margin: 14px auto;
+  color: var(--bright);
+  font-size: 19px;
+}
+
+.hero-description {
+  max-width: 530px;
+  margin: 16px auto 24px;
+  color: var(--ivory);
+  font-size: clamp(12px, 1.3vw, 15px);
+  line-height: 1.8;
+}
+
+/* GRAND ENTRANCE — NO FAKE DOORS */
+
+.cinematic-message {
+  max-width: 850px;
+  margin-top: -5vh;
+  text-align: center;
+  text-shadow: 0 5px 25px #000;
+}
+
+.cinematic-message h2 {
+  margin: 16px 0;
+  font-size: clamp(26px, 4vw, 50px);
+  line-height: 1.4;
+}
+
+.cinematic-message p:last-child {
+  color: var(--ivory);
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-style: italic;
+}
+
+/* STORY PANELS */
+
+.story-panel,
+.inscription-panel {
+  width: min(760px, 100%);
+  max-height: calc(100dvh - 110px);
+  padding: clamp(20px, 3.5vh, 40px);
+  border: 1px solid var(--line);
+  background: rgba(9, 13, 24, 0.94);
+  box-shadow: 0 20px 70px #0009;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1.8vh, 18px);
+}
+
+.story-panel h2,
+.inscription-panel h2 {
+  margin: 0;
+  color: var(--bright);
+  font-size: clamp(25px, 3vw, 42px);
+  line-height: 1.25;
+}
+
+.story-panel p:not(.eyebrow),
+.inscription-panel p:not(.eyebrow) {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: clamp(14px, 1.5vw, 18px);
+  line-height: 1.65;
+}
+
+.story-panel .gold-quote {
+  color: var(--bright);
+  font-style: italic;
+}
+
+/* CHARACTER SCENES */
+
+.character-layout {
+  width: min(1100px, 100%);
+  height: min(600px, calc(100dvh - 120px));
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(16px, 3vw, 45px);
+}
+
+.portrait {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-height: 510px;
+  min-height: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.portrait img {
+  width: 100%;
+  height: calc(100% - 30px);
+  min-height: 0;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 30px #000b);
+}
+
+.portrait figcaption {
+  color: var(--bright);
+  font-family: "Cinzel", serif;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-shadow: 0 3px 12px #000;
+}
+
+.dialogue-panel {
+  max-height: 100%;
+  padding: clamp(22px, 3vw, 42px);
+  border: 1px solid var(--line);
+  background: rgba(9, 13, 24, 0.96);
+  box-shadow: 0 25px 75px #000a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dialogue-panel h2 {
+  margin: 12px 0;
+  color: var(--bright);
+  font-size: clamp(23px, 2.8vw, 37px);
+  line-height: 1.3;
+}
+
+.gold-line {
+  height: 1px;
+  margin: 8px 0 16px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.dialogue-text {
+  min-height: 130px;
+  margin: 0 0 18px;
+  color: var(--ivory);
+  font-family: Georgia, serif;
+  font-size: clamp(16px, 1.7vw, 21px);
+  font-style: italic;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.dialogue-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dialogue-footer > span {
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+
+.key-hint {
+  margin: 14px 0 0;
+  color: #a79a86;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+}
+
+/* FOUR SEALS */
+
+.seals-content {
+  width: min(1050px, 100%);
+  max-height: calc(100dvh - 105px);
+  text-align: center;
+}
+
+.seals-content h2 {
+  margin: 12px 0;
+  color: var(--bright);
+  font-size: clamp(30px, 4vw, 52px);
+}
+
+.seals-content > p:not(.eyebrow) {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.seal-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: clamp(14px, 3vh, 26px) 0;
+}
+
+.seal {
+  min-height: 125px;
+  padding: 15px 10px;
+  border: 1px solid var(--line);
+  background: rgba(7, 11, 21, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.seal span {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  color: var(--bright);
+  font-family: "Cinzel", serif;
+  font-size: 25px;
+}
+
+.seal strong {
+  font-family: "Cinzel", serif;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* INSCRIPTION */
+
+.royal-symbol {
+  color: var(--bright);
+  font-size: 38px;
+  line-height: 1;
+}
+
+#inscription-name {
+  margin: 5px 0;
+  color: var(--bright);
+  font-size: clamp(22px, 3vw, 37px);
+  overflow-wrap: anywhere;
+}
+
+/* FINAL SCENE */
+
+.final-panel {
+  width: min(800px, 100%);
+  max-height: calc(100dvh - 100px);
+  padding: clamp(18px, 3vh, 35px);
+  border: 1px solid rgba(230, 190, 116, 0.65);
+  background: rgba(8, 12, 22, 0.96);
+  box-shadow: 0 25px 80px #000b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, 1.3vh, 13px);
+  text-align: center;
+}
+
+.final-panel h2 {
+  margin: 0;
+  font-size: clamp(32px, 4.8vw, 58px);
+  line-height: 1.12;
+}
+
+.final-subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+#final-knight-name {
+  margin: 0;
+  color: var(--bright);
+  font-size: clamp(22px, 3vw, 36px);
+  overflow-wrap: anywhere;
+}
+
+.final-stats {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.final-stats > div {
+  padding: 13px 10px;
+  border: 1px solid var(--line);
+  background: rgba(5, 8, 16, 0.8);
+}
+
+.final-stats small {
+  display: block;
+  color: var(--gold);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+
+.final-stats strong {
+  display: block;
+  margin-top: 8px;
+  font-family: "Cinzel", serif;
+  font-size: clamp(13px, 1.6vw, 19px);
+}
+
+.final-quote {
+  margin: 0;
+  color: var(--bright);
+  font-family: Georgia, serif;
+  font-size: clamp(17px, 2vw, 24px);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* FADE */
+
+#screen-fade {
+  position: absolute;
+  z-index: 50;
+  inset: 0;
+  background: #05070e;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.55s ease;
+}
+
+#screen-fade.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* SMALLER SCREENS */
+
+@media (max-width: 760px) {
+  .topbar {
+    height: 60px;
+    padding: 10px;
+  }
+
+  .chapter {
+    display: none;
+  }
+
+  .scene {
+    padding: 67px 12px 12px;
+  }
+
+  .character-layout {
+    height: calc(100dvh - 80px);
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 32%) minmax(0, 68%);
+    gap: 8px;
+  }
+
+  .portrait {
+    max-height: 100%;
+  }
+
+  .portrait img {
+    height: calc(100% - 20px);
+  }
+
+  .dialogue-panel {
+    padding: 15px;
+  }
+
+  .dialogue-text {
+    min-height: 0;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  .seal-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .seal {
+    min-height: 95px;
+    padding: 8px;
+  }
+
+  .seal span {
+    width: 38px;
+    height: 38px;
+    font-size: 20px;
+  }
+
+  .seal strong {
+    font-size: 9px;
+  }
+}
+
+@media (max-height: 700px) {
+  .scene {
+    padding-top: 65px;
+  }
+
+  .character-layout {
+    height: calc(100dvh - 80px);
+  }
+
+  .dialogue-panel {
+    padding: 20px;
+  }
+
+  .dialogue-text {
+    min-height: 0;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  .story-panel,
+  .inscription-panel {
+    gap: 9px;
+  }
+
+  .final-panel {
+    gap: 7px;
+  }
+
+  .final-panel h2 {
+    font-size: clamp(28px, 4vw, 45px);
+  }
+
+  .royal-symbol {
+    font-size: 29px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ============================================
+   EPILOGUE VISUAL REFINEMENTS — OCT 2026
+   Keeps original dialogue and scene mechanics.
+============================================ */
+
+/* Portrait and caption stay physically together */
+.character-layout {
+  width: min(1320px, 100%);
+  height: min(490px, calc(100dvh - 155px));
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(20px, 3vw, 48px);
+}
+.portrait {
+  height: auto;
+  max-height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid rgba(219,181,111,.65);
+  background: #080c17;
+  box-shadow: 0 20px 60px rgba(0,0,0,.48);
+}
+.portrait img {
+  display: block;
+  width: 100%;
+  height: clamp(235px, 34vh, 350px);
+  min-height: 0;
+  object-fit: cover;
+  object-position: center 35%;
+  filter: none;
+}
+.portrait figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 46px;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  border-top: 1px solid rgba(219,181,111,.65);
+  background: #080c17;
+  color: #f3dca6;
+  font-family: 'Cinzel',serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .13em;
+  text-align: center;
+  text-shadow: none;
+}
+.dialogue-panel { min-height: 350px; }
+
+/* Four seals: let the actual four glowing emblems be the heroes */
+#seals .seals-content { width: min(1160px,100%); }
+#seals .seals-content h2 {
+  margin: 8px 0;
+  font-size: clamp(36px,4vw,58px);
+  text-shadow: 0 3px 20px #000;
+}
+#seals .seals-content > p:not(.eyebrow) {
+  margin: 0 auto;
+  max-width: 700px;
+  font-size: clamp(14px,1.3vw,18px);
+  text-shadow: 0 2px 10px #000;
+}
+#seals .seal-grid {
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: clamp(10px,1.5vw,24px);
+  margin: clamp(70px,14vh,140px) 0 24px;
+}
+#seals .seal {
+  min-height: 68px;
+  padding: 12px 8px;
+  background: rgba(5,9,20,.73);
+  border: 1px solid rgba(232,201,148,.6);
+  box-shadow: 0 10px 30px rgba(0,0,0,.45);
+  gap: 5px;
+}
+#seals .seal span {
+  width: auto;
+  height: auto;
+  border: 0;
+  font-size: 16px;
+}
+#seals .seal strong { font-size: clamp(9px,.9vw,12px); }
+
+/* Ceremony: preserve the actual photo, move panel aside */
+#ceremony { justify-content: flex-end; }
+#ceremony .story-panel {
+  width: min(510px,42vw);
+  margin-right: 3vw;
+  padding: clamp(18px,2vw,32px);
+  background: rgba(7,11,21,.9);
+  text-align: left;
+  align-items: flex-start;
+}
+#ceremony .story-panel h2 { font-size: clamp(25px,2.5vw,38px); }
+#ceremony .story-panel p:not(.eyebrow) { font-size: clamp(14px,1.15vw,17px); }
+#ceremony .story-panel .gold-button { align-self: flex-start; }
+
+@media(max-width:760px) {
+  .character-layout {
+    height: calc(100dvh - 95px);
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0,43%) minmax(0,57%);
+    gap: 8px;
+  }
+  .portrait { height: 100%; max-width: 320px; margin: 0 auto; }
+  .portrait img { height: calc(100% - 35px); }
+  .portrait figcaption { flex-basis: 35px; font-size: 10px; }
+  .dialogue-panel { min-height: 0; }
+  #seals .seal-grid { grid-template-columns: repeat(2,1fr); margin: 20px 0; }
+  #seals .seal { min-height: 60px; }
+  #ceremony { justify-content: center; align-items: flex-end; }
+  #ceremony .story-panel {
+    width: min(94vw,550px);
+    margin: 0 0 2vh;
+    text-align: center;
+    align-items: center;
+  }
+  #ceremony .story-panel .gold-button { align-self: center; }
+}
+
+/* ==========================================
+   SCENE 6 — THE FOUR ROYAL SEALS
+   THE ANCIENT VAULT OF AURILIA
+========================================== */
+
+#seals {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  overflow: hidden;
+}
+
+#seals.active {
+  display: flex;
+}
+
+#seals .royal-vault {
+  width: min(1180px, 92vw);
+  max-height: calc(100dvh - 115px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: clamp(14px, 2.6vh, 26px);
+
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* HEADING */
+
+#seals .vault-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#seals .vault-heading .eyebrow {
+  margin: 0;
+  color: #e4c48a;
+  font-size: 11px;
+  letter-spacing: 4px;
+  font-weight: 700;
+}
+
+#seals .vault-heading h2 {
+  margin: 0;
+
+  font-family: "Cinzel", Georgia, serif;
+  font-size: clamp(31px, 4.1vw, 59px);
+  font-weight: 500;
+  letter-spacing: 2px;
+
+  color: #f4e1b5;
+
+  text-shadow:
+    0 2px 18px rgba(0, 0, 0, 0.85),
+    0 0 35px rgba(207, 161, 83, 0.24);
+}
+
+#seals .vault-description {
+  margin: 0;
+  max-width: 760px;
+
+  color: #eee4d5;
+  font-size: clamp(13px, 1.3vw, 17px);
+  line-height: 1.6;
+
+  text-shadow: 0 2px 12px #000;
+}
+
+/* FOUR SEALS */
+
+#seals .royal-seal-grid {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: clamp(10px, 1.5vw, 20px);
+}
+
+#seals .royal-seal {
+  position: relative;
+
+  min-height: clamp(175px, 27vh, 240px);
+  padding: 20px 12px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 18px;
+
+  background:
+    linear-gradient(
+      160deg,
+      rgba(12, 17, 29, 0.86),
+      rgba(8, 11, 20, 0.94)
+    );
+
+  border: 1px solid rgba(217, 176, 106, 0.38);
+
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, 0.5),
+    inset 0 0 25px rgba(255, 220, 145, 0.025);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+#seals .royal-seal::before {
+  content: "";
+  position: absolute;
+
+  inset: 7px;
+
+  border: 1px solid rgba(229, 192, 124, 0.11);
+  pointer-events: none;
+}
+
+#seals .royal-seal:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(255, 222, 151, 0.8);
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.65),
+    0 0 28px rgba(220, 171, 95, 0.12);
+}
+
+/* CIRCULAR ROYAL EMBLEMS */
+
+#seals .seal-emblem {
+  width: clamp(65px, 7vw, 92px);
+  height: clamp(65px, 7vw, 92px);
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  font-family: "Cinzel", Georgia, serif;
+  font-size: clamp(27px, 3vw, 38px);
+
+  color: #f8dfaa;
+
+  border: 1px solid rgba(248, 218, 155, 0.72);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(238, 184, 96, 0.18),
+      rgba(13, 17, 29, 0.9) 72%
+    );
+
+  box-shadow:
+    0 0 25px rgba(233, 181, 94, 0.13),
+    inset 0 0 20px rgba(232, 184, 110, 0.09);
+
+  text-shadow:
+    0 0 15px rgba(255, 217, 137, 0.55);
+}
+
+/* INDIVIDUAL MAGICAL GLOWS */
+
+#seals .seal-one .seal-emblem {
+  border-color: #dba36a;
+  box-shadow: 0 0 24px rgba(224, 129, 67, 0.25);
+}
+
+#seals .seal-two .seal-emblem {
+  border-color: #8bc9ff;
+  box-shadow: 0 0 24px rgba(75, 157, 255, 0.25);
+}
+
+#seals .seal-three .seal-emblem {
+  border-color: #c3a1ff;
+  box-shadow: 0 0 24px rgba(159, 104, 255, 0.28);
+}
+
+#seals .seal-four .seal-emblem {
+  border-color: #a9e2bb;
+  box-shadow: 0 0 24px rgba(95, 204, 135, 0.23);
+}
+
+/* TRIAL TEXT */
+
+#seals .seal-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+
+#seals .seal-details span {
+  color: #cba96d;
+
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+#seals .seal-details h3 {
+  margin: 0;
+
+  font-family: "Cinzel", Georgia, serif;
+  font-size: clamp(12px, 1.05vw, 15px);
+  font-weight: 600;
+  line-height: 1.45;
+
+  color: #f5e9d3;
+}
+
+#seals .seal-details p {
+  margin: 0;
+
+  color: #a9a9b4;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+/* FOOTER */
+
+#seals .vault-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+#seals .vault-footer > p {
+  margin: 0;
+
+  color: #e5c68c;
+  font-size: 10px;
+  letter-spacing: 2px;
+
+  text-shadow: 0 2px 12px #000;
+}
+
+#seals .vault-footer .gold-button {
+  margin: 0;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+  #seals .royal-seal-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #seals .royal-seal {
+    min-height: 130px;
+    padding: 12px;
+    gap: 8px;
+  }
+
+  #seals .seal-emblem {
+    width: 48px;
+    height: 48px;
+    font-size: 23px;
+  }
+
+  #seals .seal-details p {
+    display: none;
+  }
+
+  #seals .royal-vault {
+    gap: 12px;
+  }
+}
+
+@media (max-height: 650px) {
+  #seals .royal-seal {
+    min-height: 145px;
+    gap: 10px;
+  }
+
+  #seals .vault-heading h2 {
+    font-size: 32px;
+  }
+
+  #seals .royal-vault {
+    gap: 12px;
+  }
+}
+
+/* ============================================================
+   EPILOGUE — BACKGROUND CLARITY REFINEMENT
+   Keep A NAME WRITTEN IN HISTORY (inscription) untouched.
+   No blur removal on that scene, no dialogue/layout changes.
+============================================================ */
+
+/* Improve perceived clarity without enlarging low-res images. */
+#epilogue:not(:has(#inscription.active)) #world-image {
+  filter: contrast(1.09) saturate(1.06);
+}
+
+/* Less dark veiling on the other scenes; retain readable titles. */
+#epilogue:not(:has(#inscription.active)) .world-shade {
+  background:
+    linear-gradient(180deg, rgba(4,7,14,.40), rgba(4,7,14,.10) 45%, rgba(4,7,14,.53)),
+    radial-gradient(ellipse at center, transparent 43%, rgba(3,5,12,.25));
+}
+
+/* Keep the entrance cinematic, but avoid excessive image upscaling. */
+@keyframes cameraEnter {
+  from { transform: scale(1.015); }
+  to   { transform: scale(1.075); }
+}
+
+/* Inscription: intentionally retains original soft image treatment. */
+#epilogue:has(#inscription.active) #world-image {
+  filter: none;
+}
+
+
+/* ==========================================================
+   FINAL READABILITY PASS — ALL EPILOGUE SCENES
+   Preserves images, dialogue, layout and inscription softness.
+========================================================== */
+
+/* Give cinematic copy a soft, borderless dark halo against bright scenery. */
+.hero-content,
+.cinematic-message {
+  position: relative;
+  isolation: isolate;
+  text-shadow: 0 2px 4px rgba(0,0,0,.95), 0 5px 22px rgba(0,0,0,.95);
+}
+.hero-content::before,
+.cinematic-message::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -22px -45px;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center,
+    rgba(3,6,14,.64) 0%, rgba(3,6,14,.40) 46%, transparent 76%);
+}
+
+/* Bright, legible main titles across the introduction, return and restoration. */
+.hero-content h1,
+.cinematic-message h2 {
+  color: #fff5e3;
+  text-shadow: 0 2px 3px #05070d, 0 5px 18px #05070d, 0 0 30px rgba(0,0,0,.7);
+}
+.hero-content h1 em,
+.cinematic-message h2 em {
+  color: #ffe2a0;
+}
+.hero-content .eyebrow,
+.cinematic-message .eyebrow {
+  color: #ffe0a0;
+  text-shadow: 0 2px 8px #000, 0 0 16px #000;
+}
+.hero-description,
+.cinematic-message p:last-child {
+  color: #fff9ee;
+  font-weight: 500;
+  text-shadow: 0 2px 3px #000, 0 3px 14px #000, 0 0 24px #000;
+}
+
+/* Keep every card, seal, dialogue and final result readable. */
+.story-panel,
+.inscription-panel,
+.dialogue-panel,
+.final-panel {
+  color: #fff6e7;
+}
+.story-panel h2,
+.inscription-panel h2,
+.dialogue-panel h2,
+.final-panel h2,
+#inscription-name,
+#final-knight-name {
+  color: #ffe2a2;
+}
+.story-panel p:not(.eyebrow),
+.inscription-panel p:not(.eyebrow),
+.dialogue-text,
+.final-quote {
+  color: #fff4e5;
+}
+.final-subtitle,
+.final-stats small,
+.dialogue-footer > span,
+.key-hint {
+  color: #e8cf9e;
+}
+
+/* Royal seals: contrast against the detailed vault background. */
+#seals .vault-heading h2 {
+  color: #fff0cc;
+  text-shadow: 0 3px 5px #000, 0 5px 22px #000;
+}
+#seals .vault-description,
+#seals .vault-footer > p {
+  color: #fff4e3;
+  text-shadow: 0 2px 4px #000, 0 4px 15px #000;
+}
+#seals .seal-details h3 { color: #fff4e1; }
+#seals .seal-details p { color: #d8c9b4; }
+
+/* Navigation is always visible on light and dark photos. */
+.topbar .chapter {
+  color: #f5d59b;
+  text-shadow: 0 2px 7px #000, 0 0 14px #000;
+}
+.topbar .back-link,
+.topbar .sound-button {
+  background: rgba(4,7,15,.94);
+  color: #ffe0a0;
+  border-color: rgba(242,206,139,.65);
+}
+
+/* The inscription scene deliberately retains its soft-focus background. */
+#epilogue:has(#inscription.active) #world-image { filter: none; }
+
+@media (max-width: 760px) {
+  .hero-content::before,
+  .cinematic-message::before { inset: -14px -12px; }
+}

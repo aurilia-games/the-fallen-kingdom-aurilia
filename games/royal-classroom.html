@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal Classroom | Aurilia</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      color: #f3e6c8;
+      font-family: 'Inter', sans-serif;
+      background:
+        linear-gradient(rgba(5,8,18,.72), rgba(5,8,18,.9)),
+        url('../assets/royal-court.webp') center/cover,
+        #080c17;
+    }
+
+    .panel {
+      width: min(480px, 100%);
+      padding: 42px 32px;
+      text-align: center;
+      background: rgba(10,14,27,.94);
+      border: 1px solid #9b7848;
+      box-shadow: 0 20px 70px #0009;
+    }
+
+    .eyebrow {
+      color: #c9a66a;
+      font-size: 11px;
+      letter-spacing: 3px;
+    }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(27px, 5vw, 39px);
+      color: #f0d49b;
+      margin: 20px 0 12px;
+    }
+
+    .subtitle {
+      color: #b9b6b1;
+      line-height: 1.7;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin: 22px 0 9px;
+      color: #d6ba83;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px;
+      background: #111a2d;
+      border: 1px solid #665537;
+      outline: none;
+      color: #fff3d7;
+      font-size: 15px;
+      border-radius: 4px;
+    }
+
+    input:focus {
+      border-color: #e0bc78;
+    }
+
+    .preview {
+      margin-top: 28px;
+      padding: 22px;
+      background: #10192a;
+      border: 1px solid #51432e;
+    }
+
+    .preview small {
+      color: #b5a17d;
+      letter-spacing: 2px;
+    }
+
+    .preview strong {
+      display: block;
+      margin-top: 12px;
+      font-family: 'Cinzel', serif;
+      font-size: 23px;
+      color: #f1d49c;
+      overflow-wrap: anywhere;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 24px;
+      padding: 17px;
+      border: 1px solid #e5c68b;
+      background: linear-gradient(110deg,#b58a4d,#efd39a,#b58a4d);
+      color: #17120d;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+    }
+
+    button:hover { filter: brightness(1.1); }
+
+    .message {
+      min-height: 22px;
+      margin-top: 15px;
+      color: #f4b5a4;
+      font-size: 13px;
+    }
+  </style>
+
+  <script src="../knight-system.js" defer></script>
+</head>
+
+<body>
+  <main class="panel">
+    <div class="eyebrow">✦ THE FALLEN KINGDOM ✦</div>
+
+    <h1>ROYAL CLASSROOM</h1>
+
+    <p class="subtitle">
+      Enter your classroom code and choose your
+      Knight name to begin your royal adventure.
+    </p>
+
+    <form id="join-form">
+      <label for="class-code">ROYAL CLASS CODE</label>
+      <input id="class-code"
+             placeholder="e.g. AU-7K92"
+             maxlength="12"
+             autocomplete="off"
+             required>
+
+      <label for="knight-name">YOUR KNIGHT NAME</label>
+      <input id="knight-name"
+             placeholder="Enter your Knight name"
+             maxlength="24"
+             autocomplete="off"
+             required>
+
+      <div class="preview">
+        <small>YOUR ROYAL IDENTITY</small>
+        <strong id="knight-preview">Knight ...</strong>
+      </div>
+
+      <button type="submit">ENTER THE KINGDOM →</button>
+      <p class="message" id="message" role="status"></p>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById('join-form');
+    const codeInput = document.getElementById('class-code');
+    const nameInput = document.getElementById('knight-name');
+    const preview = document.getElementById('knight-preview');
+    const message = document.getElementById('message');
+
+    nameInput.addEventListener('input', () => {
+      const name = nameInput.value.trim();
+      preview.textContent = 'Knight ' + (name || '...');
+    });
+
+    codeInput.addEventListener('input', () => {
+      codeInput.value = codeInput.value.toUpperCase();
+    });
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+
+      const code = codeInput.value.trim().toUpperCase();
+      const name = nameInput.value.trim();
+
+      if (!/^AU-[A-Z0-9]{4,8}$/.test(code)) {
+        message.textContent = 'Please enter a valid class code.';
+        return;
+      }
+
+      if (!name) {
+        message.textContent = 'Please enter your Knight name.';
+        return;
+      }
+
+      // Preview only: no Firebase registration yet.
+      message.style.color = '#bce6bc';
+      message.textContent =
+        'Knight ' + name + ', your identity is ready! ' +
+        'Class verification will be connected next.';
+    });
+  </script>
+</body>
+</html>

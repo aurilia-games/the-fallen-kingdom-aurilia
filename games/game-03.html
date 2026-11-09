@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starfall Citadel — The Twin-Rune Trial</title>
+  <link rel="stylesheet" href="css/game-03.css">
+</head>
+<body>
+  <main id="game-shell">
+    <header class="game-header">
+      <a class="back-link" href="main-quest.html">
+        ← RETURN TO QUEST
+      </a>
+      <div class="brand">
+        <span class="eyebrow">THE FALLEN KINGDOM · TRIAL III</span>
+        <h1>STARFALL CITADEL</h1>
+      </div>
+      <button id="sound-toggle" class="sound-button" type="button">♫ SOUND: ON</button>
+    </header>
+
+    <section class="hud" aria-label="Game status">
+      <div class="hud-block">
+        <span class="hud-label">LIVES</span>
+        <strong id="lives">♥ ♥ ♥ ♥ ♥</strong>
+      </div>
+      <div class="hud-block">
+        <span class="hud-label">ROYAL XP</span>
+        <strong id="xp">0 XP</strong>
+      </div>
+      <div class="hud-block">
+        <span class="hud-label">MECHANISM</span>
+        <strong id="progress">01 / 12</strong>
+      </div>
+      <div class="hud-block objective">
+        <span class="hud-label">THE CURRENT SEAL</span>
+        <strong id="equation">x² = 49</strong>
+        <small id="objective">Find both answers. Activate the two correct runes.</small>
+      </div>
+    </section>
+
+    <section id="world-frame">
+      <canvas id="game-canvas" aria-label="Interactive Starfall Citadel platform game"></canvas>
+
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+      <div id="start-screen" class="screen">
+        <div class="screen-card">
+          <span class="eyebrow">THE ASTRAL ARCHIVE HAS AWAKENED</span>
+          <h2>The Twin-Rune Trial</h2>
+          <p>The star bridges are broken. For each equation, find and activate the two correct runes to restore the bridge.</p>
+          <ul>
+            <li>Move with <b>A / D</b> or <b>← / →</b></li>
+            <li>Jump with <b>SPACE</b> or <b>W</b></li>
+            <li>Move close to a rune. Press <b>E</b> or <b>ENTER</b> to select it</li>
+            <li>Each correct rune gives <b>+10 XP</b></li>
+            <li>Falling or being struck by lightning costs one life</li>
+          </ul>
+          <p class="math-reminder">Remember: √49 = 7, but x² = 49 has two answers: +7 and −7.</p>
+          <button id="start-button" class="primary-button" type="button">ENTER THE CITADEL</button>
+        </div>
+      </div>
+
+      <div id="end-screen" class="screen hidden">
+        <div class="screen-card">
+          <span id="ending-eyebrow" class="eyebrow">
+            THE CITADEL REMEMBERS
+          </span>
+
+          <h2 id="ending-title">
+            The Star Bridges Are Restored
+          </h2>
+
+          <p id="ending-copy"></p>
+
+          <div class="ending-stats">
+            <div>
+              <span>FINAL XP</span>
+              <strong id="final-xp">0</strong>
+            </div>
+            <div>
+              <span>SEALS RESTORED</span>
+              <strong id="final-seals">0 / 12</strong>
+            </div>
+          </div>
+
+          <div class="end-actions">
+            <button
+              id="restart-button"
+              class="primary-button"
+              type="button"
+            >
+              PLAY AGAIN
+            </button>
+
+            <a
+              href="main-quest.html"
+              class="primary-button"
+            >
+              ← RETURN TO QUEST
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="game-footer">
+      <p id="world-message">The Star Core sleeps. Find the glowing rune altar.</p>
+      <div class="controls-legend">
+        <span><kbd>A</kbd><kbd>D</kbd> MOVE</span>
+        <span><kbd>SPACE</kbd> JUMP</span>
+        <span><kbd>E</kbd><kbd>ENTER</kbd> INTERACT</span>
+      </div>
+    </footer>
+  </main>
+
+  <script src="../knight-system.js"></script>
+  <script src="js/game-03-cinematic.js"></script>
+  <script src="js/game-03.js"></script>
+  <script type="module" src="../firebase-leaderboard.js"></script>
+</body>
+</body>
+</html>

@@ -1,0 +1,370 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>The Kingdom Remembers | Aurilia</title>
+
+  <link rel="stylesheet" href="css/epilogue.css">
+  <script src="../knight-system.js" defer></script>
+  <script src="js/epilogue.js" defer></script>
+  <script src="js/epilogue-music.js" defer></script>
+</head>
+
+<body>
+  <main id="epilogue">
+
+    <div class="world" aria-hidden="true">
+      <div id="world-image"></div>
+      <div class="world-shade"></div>
+      <div id="gold-dust"></div>
+    </div>
+
+    <header class="topbar">
+      <a href="main-quest.html" class="back-link">
+        ← THE KINGDOM
+      </a>
+
+      <span class="chapter">
+        THE FALLEN KINGDOM · EPILOGUE
+      </span>
+
+      <button id="sound-toggle" class="sound-button">
+        ♫ SOUND: ON
+      </button>
+    </header>
+
+    <!-- 1. RETURN -->
+    <section id="arrival" class="scene active"
+             data-bg="knight-returns.jpg">
+
+      <div class="hero-content">
+        <p class="eyebrow">✦ THE FINAL CHAPTER ✦</p>
+
+        <h1>THE KINGDOM<br><em>REMEMBERS</em></h1>
+
+        <div class="ornament">✦</div>
+
+        <p class="hero-description">
+          Four trials conquered. Ancient knowledge restored.
+          Beyond the gates of Aurilia, a kingdom awaits
+          the return of its hero.
+        </p>
+
+        <button class="gold-button" data-next="gates">
+          RETURN TO THE ROYAL COURT
+          <span>↗</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. GRAND ENTRANCE -->
+    <section id="gates" class="scene"
+             data-bg="grand-court.webp">
+
+      <div class="cinematic-message">
+        <p class="eyebrow">THE ROYAL COURT OF AURILIA</p>
+
+        <h2>
+          THE HALL THAT ONCE JUDGED YOU
+          <em>NOW WELCOMES YOU HOME</em>
+        </h2>
+
+        <p>The royal doors stand open for their hero.</p>
+      </div>
+    </section>
+
+    <!-- 3. CELEBRATION -->
+    <section id="welcome" class="scene"
+             data-bg="people-celebrate.webp">
+
+      <article class="story-panel">
+        <p class="eyebrow">✦ THE RETURN OF THE KNIGHT ✦</p>
+        <h2>A HERO'S HOMECOMING</h2>
+
+        <p>
+          The bells of Aurilia ring once more.
+          The people gather beneath the royal banners.
+          Hope has returned to the kingdom.
+        </p>
+
+        <p class="gold-quote">
+          They are not waiting for a miracle.
+          They are welcoming the one who made it possible.
+        </p>
+
+        <button class="gold-button" data-next="archivist">
+          ENTER THE HALL OF HONOUR <span>→</span>
+        </button>
+      </article>
+    </section>
+
+    <!-- 4. ARCHIVIST -->
+    <section id="archivist" class="scene"
+             data-bg="archivist-hall-new.webp">
+
+      <div class="character-layout">
+        <figure class="portrait">
+          <img src="../assets/royal-archivist.jpg"
+               alt="The Royal Archivist">
+          <figcaption>THE ROYAL ARCHIVIST</figcaption>
+        </figure>
+
+        <article class="dialogue-panel">
+          <p class="eyebrow">✦ THE ROYAL ARCHIVIST ✦</p>
+          <h2>AN UNEXPECTED HERO</h2>
+
+          <div class="gold-line"></div>
+
+          <p id="archivist-dialogue" class="dialogue-text"></p>
+
+          <div class="dialogue-footer">
+            <span id="archivist-progress">01 / 04</span>
+
+            <button id="archivist-next" class="gold-button">
+              CONTINUE <span>→</span>
+            </button>
+          </div>
+
+          <p class="key-hint">PRESS ENTER TO CONTINUE</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 5. PRINCE -->
+    <section id="prince" class="scene"
+             data-bg="prince-hall-new.webp">
+
+      <div class="character-layout">
+        <figure class="portrait">
+          <img src="../assets/prince-kingdom.png"
+               alt="The Prince of Aurilia">
+          <figcaption>THE PRINCE OF AURILIA</figcaption>
+        </figure>
+
+        <article class="dialogue-panel">
+          <p class="eyebrow">✦ A ROYAL PROCLAMATION ✦</p>
+          <h2>THE KINGDOM'S GRATITUDE</h2>
+
+          <div class="gold-line"></div>
+
+          <p id="prince-dialogue" class="dialogue-text"></p>
+
+          <div class="dialogue-footer">
+            <span id="prince-progress">01 / 03</span>
+
+            <button id="prince-next" class="gold-button">
+              CONTINUE <span>→</span>
+            </button>
+          </div>
+
+          <p class="key-hint">PRESS ENTER TO CONTINUE</p>
+        </article>
+      </div>
+    </section>
+
+    
+    <!-- 6. THE FOUR ROYAL SEALS -->
+    <section
+    id="seals"
+    class="scene"
+    data-bg="royal-vault.png"
+    >
+
+    <div class="royal-vault">
+
+        <div class="vault-heading">
+        <p class="eyebrow">
+            ✦ THE FOUR ROYAL TRIALS ✦
+        </p>
+
+        <h2>THE SEALS AWAKEN</h2>
+
+        <p class="vault-description">
+            Four trials. Four victories.
+            Four ancient seals restored to their rightful glory.
+        </p>
+        </div>
+
+        <div class="royal-seal-grid">
+
+        <div class="royal-seal seal-one">
+            <div class="seal-emblem">Ⅰ</div>
+
+            <div class="seal-details">
+            <span>TRIAL I</span>
+            <h3>THE SHATTERED GROUNDS</h3>
+            <p>THE SEAL OF FOUNDATION</p>
+            </div>
+        </div>
+
+        <div class="royal-seal seal-two">
+            <div class="seal-emblem">Ⅱ</div>
+
+            <div class="seal-details">
+            <span>TRIAL II</span>
+            <h3>THE LOST PASSAGE</h3>
+            <p>THE SEAL OF WISDOM</p>
+            </div>
+        </div>
+
+        <div class="royal-seal seal-three">
+            <div class="seal-emblem">Ⅲ</div>
+
+            <div class="seal-details">
+            <span>TRIAL III</span>
+            <h3>STARFALL CITADEL</h3>
+            <p>THE SEAL OF THE STARS</p>
+            </div>
+        </div>
+
+        <div class="royal-seal seal-four">
+            <div class="seal-emblem">Ⅳ</div>
+
+            <div class="seal-details">
+            <span>TRIAL IV</span>
+            <h3>THE LAST DECREE</h3>
+            <p>THE SEAL OF RESTORATION</p>
+            </div>
+        </div>
+
+        </div>
+
+        <div class="vault-footer">
+        <p>
+            ✦ THE KNOWLEDGE OF AURILIA HAS BEEN RESTORED ✦
+        </p>
+
+        <button
+            class="gold-button"
+            data-next="ceremony"
+            type="button"
+        >
+            WITNESS THE ROYAL CEREMONY
+            <span>✦</span>
+        </button>
+        </div>
+
+    </div>
+
+    </section>
+
+    <!-- 7. CEREMONY -->
+    <section id="ceremony" class="scene"
+             data-bg="knight-ceremony-new.png">
+
+      <article class="story-panel">
+        <p class="eyebrow">✦ BEFORE THE ROYAL COURT ✦</p>
+        <h2>THE HONOUR OF AURILIA</h2>
+
+        <p>
+          Beneath the ancient banners, the Knight
+          stands before the throne.
+          The Royal Court falls silent.
+        </p>
+
+        <p class="gold-quote">
+          No longer a stranger. No longer an untested
+          candidate. A name worthy of the Royal Archives.
+        </p>
+
+        <button class="gold-button" data-next="inscription">
+          RECEIVE THE ROYAL DECREE <span>→</span>
+        </button>
+      </article>
+    </section>
+
+    <!-- 8. INSCRIPTION -->
+    <section id="inscription" class="scene"
+             data-bg="royal-inscription.jpg">
+
+      <article class="inscription-panel">
+        <div class="royal-symbol">✦</div>
+
+        <p class="eyebrow">THE ROYAL ARCHIVES OF AURILIA</p>
+
+        <h2>A NAME WRITTEN IN HISTORY</h2>
+
+        <p>By royal decree, the kingdom honours</p>
+
+        <h3 id="inscription-name">KNIGHT</h3>
+
+        <p>
+          For courage, wisdom and unwavering resolve
+          in restoring the lost knowledge of Aurilia.
+        </p>
+
+        <button class="gold-button" data-next="restoration">
+          BEHOLD THE RESTORED KINGDOM <span>✦</span>
+        </button>
+      </article>
+    </section>
+
+    <!-- 9. RESTORATION -->
+    <section id="restoration" class="scene"
+             data-bg="restored-kingdom.webp">
+
+      <div class="hero-content">
+        <p class="eyebrow">✦ THE DAWN OF A NEW ERA ✦</p>
+
+        <h1>AURILIA<br><em>IS RESTORED</em></h1>
+
+        <p class="hero-description">
+          Where darkness once reigned,
+          the first light of a new age rises.
+        </p>
+
+        <button class="gold-button" data-next="final">
+          REVEAL YOUR LEGACY <span>→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 10. FINAL -->
+    <section id="final" class="scene"
+             data-bg="new-dawn.jpg">
+
+      <article class="final-panel">
+        <div class="royal-symbol">♛</div>
+
+        <p class="eyebrow">
+          ✦ THE ROYAL ARCHIVES · FINAL INSCRIPTION ✦
+        </p>
+
+        <h2>THE KINGDOM<br><em>REMEMBERS</em></h2>
+
+        <p class="final-subtitle">
+          Four royal trials completed. A kingdom restored.
+        </p>
+
+        <h3 id="final-knight-name">KNIGHT</h3>
+
+        <div class="final-stats">
+          <div>
+            <small>TOTAL EXPERIENCE</small>
+            <strong id="final-xp">0 / 515 XP</strong>
+          </div>
+
+          <div>
+            <small>ROYAL RANK</small>
+            <strong id="final-rank">ROYAL CANDIDATE</strong>
+          </div>
+        </div>
+
+        <p class="final-quote">
+          “You entered as a stranger.<br>
+          You leave as a legend.”
+        </p>
+
+        <a href="main-quest.html" class="gold-button">
+          RETURN TO THE KINGDOM <span>↗</span>
+        </a>
+      </article>
+    </section>
+
+    <div id="screen-fade" aria-hidden="true"></div>
+  </main>
+</body>
+</html>

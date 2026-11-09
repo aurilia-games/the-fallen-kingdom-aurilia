@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Knight Leaderboard | The Fallen Kingdom</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 50% 0%, #29334a, transparent 65%),
+        linear-gradient(160deg, #101522, #070910);
+      color: #f3e8d1;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .leaderboard {
+      width: min(1000px, 92%);
+      margin: auto;
+      padding: 65px 0;
+      text-align: center;
+    }
+
+    .eyebrow {
+      color: #c9a76b;
+      letter-spacing: 4px;
+      font-size: 12px;
+    }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(30px, 5vw, 54px);
+      color: #f0d49b;
+      margin: 18px 0;
+    }
+
+    .subtitle {
+      color: #b7b4b1;
+      line-height: 1.7;
+    }
+
+    .timer {
+      margin: 35px auto;
+      padding: 25px;
+      border: 1px solid #79613b;
+      border-radius: 12px;
+      background: rgba(12, 15, 25, .85);
+      max-width: 450px;
+    }
+
+    .timer-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: #c9a76b;
+    }
+
+    #countdown {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(32px, 6vw, 52px);
+      color: #f5dfad;
+      margin-top: 12px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ranking-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 35px;
+      background: rgba(11, 15, 25, .82);
+      border: 1px solid #665437;
+    }
+
+    th, td {
+      padding: 20px 12px;
+      border-bottom: 1px solid #34343c;
+    }
+
+    th {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: #d2b478;
+      text-transform: uppercase;
+    }
+
+    td {
+      font-size: 15px;
+    }
+
+    td:first-child {
+      font-family: 'Cinzel', serif;
+      color: #e6c782;
+      font-weight: bold;
+    }
+
+    td:last-child {
+      color: #f1d396;
+      font-weight: bold;
+    }
+
+    .empty {
+      padding: 45px;
+      color: #aaa7a3;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 35px;
+      padding: 14px 28px;
+      color: #f1d49a;
+      text-decoration: none;
+      border: 1px solid #98794a;
+      border-radius: 5px;
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .back-link:hover {
+      background: rgba(201, 167, 107, .13);
+    }
+  </style>
+
+  <script src="../knight-system.js" defer></script>
+</head>
+
+<body>
+  <main class="leaderboard">
+
+    <p class="eyebrow">✦ THE KINGDOM OF AURILIA ✦</p>
+
+    <h1>KNIGHT LEADERBOARD</h1>
+
+    <p class="subtitle">
+      The Royal Archive records the latest achievements
+      of every knight competing for the throne.
+    </p>
+
+    <section class="timer">
+      <div class="timer-label">TIME REMAINING</div>
+      <div id="countdown">06:00:00</div>
+    </section>
+
+    <table class="ranking-table">
+      <thead>
+        <tr>
+          <th>RANK</th>
+          <th>ROYAL KNIGHT</th>
+          <th>LATEST XP</th>
+        </tr>
+      </thead>
+
+      <tbody id="leaderboard-body">
+        <tr>
+          <td colspan="3" class="empty">
+            Awaiting the Royal Knights...
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <a href="main-quest.html" class="back-link">
+      ← RETURN TO THE KINGDOM
+    </a>
+
+  </main>
+
+  <script type="module" src="js/leaderboard-global.js"></script>
+</body>
+</html>

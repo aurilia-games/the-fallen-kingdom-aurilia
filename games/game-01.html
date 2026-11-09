@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>The Shattered Grounds — The Cursed Floor</title>
+
+    <link rel="stylesheet" href="css/game-01.css">
+</head>
+
+<body>
+<div id="game-shell">
+
+    <!-- 3D GAME WORLD -->
+    <canvas id="world"></canvas>
+
+    <!-- TOP NAVIGATION -->
+    <header class="topbar">
+        <a class="back-link" href="main-quest.html">
+            ← RETURN TO QUESTS
+        </a>
+
+        <div class="chapter-label">
+            ✦ AURILIA · CHAPTER I
+        </div>
+
+        <button
+            id="sound-toggle"
+            class="sound-button"
+            type="button"
+        >
+            ♫ SOUND: ON
+        </button>
+    </header>
+
+    <!-- GAME HUD -->
+    <section class="hud">
+
+        <div class="hud-card">
+            <span class="eyebrow">ROYAL KNIGHT</span>
+
+            <strong id="stage-name">
+                THE SHATTERED GROUNDS
+            </strong>
+
+            <span id="stage-subtitle">
+                Find the safe runes. Break the curse.
+            </span>
+        </div>
+
+        <div class="hud-stats">
+
+            <div class="stat">
+                <span class="eyebrow">LIVES</span>
+                <strong id="lives">♥ ♥ ♥</strong>
+            </div>
+
+            <div class="stat">
+                <span class="eyebrow">SEALS</span>
+                <strong id="seals">0 / 5</strong>
+            </div>
+
+            <div class="stat">
+                <span class="eyebrow">SCORE</span>
+                <strong id="score">000</strong>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- OBJECTIVE -->
+    <div class="objective">
+        <span class="objective-icon">✦</span>
+
+        <span>
+            <b>YOUR OBJECTIVE</b><br>
+
+            Find the perfect-square stones. Jump on the safe stones, avoid cursed stones, and restore all five royal seals.
+        </span>
+    </div>
+
+    <!-- CONTROL GUIDE -->
+    <div class="controls-hint">
+        <span><kbd>W A S D</kbd> MOVE</span>
+        <span><kbd>SPACE</kbd> JUMP</span>
+        <span><kbd>CLICK + DRAG</kbd> LOOK AROUND</span>
+        <span><kbd>JUMP</kbd> CROSS THE GAPS</span>
+    </div>
+
+    <!-- EFFECTS -->
+    <div id="fall-flash" class="fall-flash"></div>
+    <div id="toast" class="toast"></div>
+
+
+    <!-- =========================================
+         INTRO SCREEN
+    ========================================== -->
+    <section
+        id="intro-screen"
+        class="screen-overlay"
+    >
+        <div class="panel intro-panel">
+
+            <div class="ornament">
+                ✦ ━━━━━━━━━ ✦
+            </div>
+
+            <p class="eyebrow">
+                THE FALLEN KINGDOM: AURILIA
+            </p>
+
+            <h1>
+                THE <em>CURSED</em><br>
+                FLOOR
+            </h1>
+
+            <p class="intro-copy">
+                The royal courtyard has been sealed by an ancient
+                curse. The bridge has shattered above a bottomless
+                abyss. Only stones with perfect-square numbers are safe.
+
+                Read the numbers before you jump. Land on safe stones and avoid the cursed ones.
+            </p>
+
+            <div class="intro-note">
+                ✧ FIVE SEALS · TWENTY-FIVE RUNES · THREE LIVES
+            </div>
+
+            <button
+                id="start-game"
+                class="gold-button"
+                type="button"
+            >
+                ENTER THE SHATTERED GROUNDS
+                <span>→</span>
+            </button>
+
+            <p class="tiny-note">
+                Read each number carefully. Choose safe stones and answer the rune challenges to continue.
+            </p>
+
+        </div>
+    </section>
+
+
+    <!-- =========================================
+         QUESTION SCREEN
+         Kept for compatibility with game-01.js
+    ========================================== -->
+    <section
+        id="question-screen"
+        class="screen-overlay hidden"
+    >
+        <div class="panel question-panel">
+
+            <div class="question-topline">
+                <span id="question-stage">SEAL I</span>
+                <span id="question-progress">RUNE 1 OF 3</span>
+            </div>
+
+            <div class="rune-symbol">✧</div>
+
+            <p class="eyebrow">
+                THE CURSED RUNE HAS AWAKENED
+            </p>
+
+            <h2>
+                Is this number a perfect square?
+            </h2>
+
+            <div
+                id="question-number"
+                class="question-number"
+            >
+                9
+            </div>
+
+            <p
+                id="question-hint"
+                class="question-hint"
+            >
+                Think carefully before giving your verdict.
+            </p>
+
+            <div class="answer-buttons">
+
+                <button
+                    id="answer-yes"
+                    class="answer-button"
+                    type="button"
+                >
+                    ✓<br>
+                    YES, IT IS
+                </button>
+
+                <button
+                    id="answer-no"
+                    class="answer-button danger"
+                    type="button"
+                >
+                    ✕<br>
+                    NO, IT IS NOT
+                </button>
+
+            </div>
+
+            <p class="tiny-note">
+                Choose your path with your own movement.
+                Stable perfect-square runes glow gold;
+                non-square runes are cursed and collapse beneath you.
+            </p>
+
+        </div>
+    </section>
+
+
+    <!-- =========================================
+         MESSAGE SCREEN
+    ========================================== -->
+    <section
+        id="message-screen"
+        class="screen-overlay hidden"
+    >
+        <div class="panel message-panel">
+
+            <div
+                id="message-icon"
+                class="message-icon"
+            >
+                ✦
+            </div>
+
+            <p
+                id="message-eyebrow"
+                class="eyebrow"
+            >
+                RUNE RESTORED
+            </p>
+
+            <h2 id="message-title">
+                A TRUE VERDICT
+            </h2>
+
+            <p id="message-copy">
+                The magic has returned to the stone.
+            </p>
+
+            <button
+                id="message-continue"
+                class="gold-button"
+                type="button"
+            >
+                CONTINUE
+                <span>→</span>
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- =========================================
+         GAME OVER SCREEN
+    ========================================== -->
+    <section
+        id="game-over-screen"
+        class="screen-overlay hidden"
+    >
+        <div class="panel message-panel">
+
+            <div class="message-icon danger-text">
+                ☠
+            </div>
+
+            <p class="eyebrow">
+                THE CURSE HAS WON
+            </p>
+
+            <h2>
+                THE KINGDOM WAITS
+            </h2>
+
+            <p>
+                You have run out of lives, Knight.
+                Regroup and try again.
+            </p>
+
+            <button
+                id="restart-game"
+                class="gold-button"
+                type="button"
+            >
+                RETRY THE CHALLENGE
+                <span>↻</span>
+            </button>
+
+            <a
+                class="subtle-link"
+                href="main-quest.html"
+            >
+                Return to Quest Selection
+            </a>
+
+        </div>
+    </section>
+
+
+    <!-- =========================================
+        ROYAL VICTORY & NAME INSCRIPTION
+    ========================================== -->
+    <section
+        id="victory-screen"
+        class="screen-overlay hidden royal-victory-screen"
+    >
+        <div class="panel message-panel royal-victory-panel">
+
+            <div class="royal-victory-ornament">
+                ✦ ━━━━━━━━━ ♛ ━━━━━━━━━ ✦
+            </div>
+
+            <p class="eyebrow royal-kicker">
+                THE FALLEN KINGDOM · AURILIA
+            </p>
+
+            <div class="royal-crown">♛</div>
+
+            <p class="royal-status">
+                ✧ ALL FIVE ROYAL SEALS RESTORED ✧
+            </p>
+
+            <h2 class="royal-victory-title">
+                CONGRATULATIONS,<br>
+                <em id="victory-knight-name">KNIGHT!</em>
+            </h2>
+
+            <p class="royal-victory-copy">
+                You have conquered The Shattered Grounds and restored
+                all five Royal Seals. Your mastery of perfect squares
+                has brought new hope to Aurilia.
+            </p>
+
+            <div class="royal-score-frame">
+                <span class="royal-score-label">
+                    YOUR FINAL SCORE
+                </span>
+
+                <strong id="final-score">000</strong>
+
+                <span class="royal-score-caption">
+                    THE SHATTERED GROUNDS · CHAPTER I
+                </span>
+            </div>
+
+            <!-- NAME ENTRY -->
+            <div id="royal-inscription" class="royal-inscription">
+
+                <div class="royal-name-divider">
+                    <span>✦</span>
+                    <span>THE ROYAL ARCHIVE</span>
+                    <span>✦</span>
+                </div>
+
+                <label
+                    for="royal-player-name"
+                    class="royal-name-label"
+                >
+                    ENTER YOUR KNIGHT NAME
+                </label>
+
+                <p class="royal-name-prompt">
+                    How shall the kingdom remember you, brave knight?
+                </p>
+
+                <input
+                    id="royal-player-name"
+                    class="royal-name-input"
+                    type="text"
+                    maxlength="24"
+                    autocomplete="nickname"
+                    placeholder="Your name, brave knight..."
+                >
+
+                <p
+                    id="royal-name-error"
+                    class="royal-name-error"
+                    aria-live="polite"
+                ></p>
+
+                <button
+                    id="inscribe-name"
+                    class="gold-button royal-inscribe-button"
+                    type="button"
+                >
+                    INSCRIBE MY NAME
+                    <span>✦</span>
+                </button>
+
+                <button
+                    id="continue-anonymous"
+                    class="royal-anonymous-button"
+                    type="button"
+                >
+                    CONTINUE ANONYMOUSLY
+                </button>
+
+                <p class="royal-privacy-note">
+                    Your record will be saved in this browser.
+                </p>
+
+            </div>
+
+            <!-- LEADERBOARD IS INSERTED HERE BY JAVASCRIPT -->
+
+            <button
+                id="replay-game"
+                class="gold-button royal-replay-button"
+                type="button"
+            >
+                PLAY AGAIN
+                <span>↻</span>
+            </button>
+
+            <a
+                href="leaderboard.html"
+                class="royal-leaderboard-link"
+                style="
+                    display: inline-block;
+                    margin-top: 16px;
+                    padding: 14px 24px;
+                    border: 1px solid #c7a86a;
+                    border-radius: 6px;
+                    background: rgba(12, 16, 27, 0.85);
+                    color: #f1d9a0;
+                    font-family: Cinzel, Georgia, serif;
+                    font-size: 13px;
+                    letter-spacing: 1.5px;
+                    text-decoration: none;
+                    text-align: center;
+                "
+            >
+                ✦ VIEW KNIGHT LEADERBOARD ✦
+            </a>
+
+            <a
+                class="subtle-link royal-return-link"
+                href="main-quest.html"
+            >
+                RETURN TO QUEST SELECTION
+            </a>
+
+            <div class="royal-victory-ornament bottom-ornament">
+                ✦ ━━━━━━━━━━━━━━━━━━━━━ ✦
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- =========================================
+         LOADING SCREEN
+    ========================================== -->
+    <div
+        id="loading-screen"
+        class="loading-screen"
+    >
+        <div class="loading-mark">✦</div>
+
+        <p>AWAKENING AURILIA</p>
+
+        <span>
+            Preparing the royal courtyard…
+        </span>
+    </div>
+
+
+    <!-- =========================================
+         ERROR SCREEN
+    ========================================== -->
+    <section
+        id="error-screen"
+        class="screen-overlay hidden"
+    >
+        <div class="panel message-panel">
+
+            <div class="message-icon danger-text">
+                !
+            </div>
+
+            <p class="eyebrow">
+                THE ROYAL ARCHIVE IS UNSTABLE
+            </p>
+
+            <h2>
+                THE WORLD COULD NOT LOAD
+            </h2>
+
+            <p id="error-message">
+                Open this game with VS Code Live Server
+                and check your internet connection.
+            </p>
+
+            <a
+                class="subtle-link"
+                href="main-quest.html"
+            >
+                Return to Quest Selection
+            </a>
+
+        </div>
+    </section>
+
+</div>
+
+<!-- SHARED CAMPAIGN SYSTEM -->
+<script src="../knight-system.js"></script>
+
+<!-- GAME SCRIPT -->
+<script
+    type="module"
+    src="js/game-01.js"
+></script>
+
+<script type="module" src="../firebase-leaderboard.js"></script>
+
+</body>
+</html>

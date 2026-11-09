@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b16">
+
+  <title>The Last Decree — Trial IV</title>
+
+  <link rel="stylesheet" href="css/game-04.css">
+</head>
+
+<body>
+  <div id="game-shell">
+    <div id="game-view"></div>
+
+    <header class="top-bar">
+      <a class="back-link" href="main-quest.html">← RETURN TO QUEST</a>
+
+      <div class="trial-heading">
+        <span>THE FALLEN KINGDOM · TRIAL IV</span>
+        <h1>THE LAST DECREE</h1>
+      </div>
+
+      <button id="sound-toggle" class="sound-button" type="button">
+        ♫ SOUND: ON
+      </button>
+    </header>
+
+    <div id="player-banner" class="player-banner">
+      KNIGHT <span id="player-name">ROYAL CANDIDATE</span>
+    </div>
+
+    <section class="hud" aria-label="Game statistics">
+      <div class="hud-card">
+        <span class="hud-label">ROYAL EXPERIENCE</span>
+        <strong><span id="xp-value">0</span> XP</strong>
+      </div>
+
+      <div class="hud-card lives-card">
+        <span class="hud-label">KNIGHT'S VITALITY</span>
+        <strong id="lives-value">♥ ♥ ♥ ♥ ♥</strong>
+      </div>
+
+      <div class="hud-card">
+        <span class="hud-label">ROYAL DECREE</span>
+        <strong><span id="question-number">1</span> / 9</strong>
+      </div>
+    </section>
+
+    <div class="crosshair" aria-hidden="true">
+      <span></span>
+    </div>
+
+    <section class="question-panel" aria-live="polite">
+      <div class="question-kicker">THE ROYAL ARCHIVE</div>
+      <div id="question-text">The first decree awaits...</div>
+      <p id="question-hint">Move close to a door. Press E or ENTER to choose your answer.</p>
+    </section>
+
+    <div id="interaction-prompt" class="interaction-prompt">
+      <span class="keycap">E</span>
+      <span id="interaction-text">APPROACH A DOOR</span>
+    </div>
+
+    <div id="feedback" class="feedback" aria-live="polite"></div>
+
+    <aside class="controls-hint">
+      <span><kbd>W A S D</kbd> MOVE</span>
+      <span><kbd>SHIFT</kbd> RUN</span>
+      <span><kbd>E / ENTER</kbd> CHOOSE</span>
+      <span><kbd>DOUBLE-CLICK + DRAG</kbd> LOOK AROUND</span>
+    </aside>
+
+    <div id="start-screen" class="screen-overlay">
+      <div class="screen-card">
+        <div class="ornament">✦</div>
+        <p class="screen-eyebrow">THE FALLEN KINGDOM</p>
+        <h2>THE LAST DECREE</h2>
+
+        <p class="screen-description">
+          Solve nine questions about squares and square roots. Find the correct door and press E or ENTER to continue.
+        </p>
+
+        <div class="rule-list">
+          <div><span>+10 XP</span> Correct decree</div>
+          <div><span>−5 XP</span> Incorrect decree</div>
+          <div><span>−1 ♥</span> Incorrect decree</div>
+        </div>
+
+        <div class="learning-note">
+          <strong>ROYAL KNOWLEDGE</strong>
+          <p>
+            If 3² = 9 and (−3)² = 9, then the solutions
+            of x² = 9 are x = ±3. However, √9 = 3.
+          </p>
+        </div>
+
+        <button id="start-button" class="gold-button" type="button">
+          ENTER THE NINE REALMS
+        </button>
+
+        <p class="screen-footnote">
+          Find the correct door and press E or ENTER. Using a touchpad? Double-click and drag to look around.
+        </p>
+      </div>
+    </div>
+
+    <div id="end-screen" class="screen-overlay hidden">
+      <div class="screen-card victory-card">
+        <div id="end-ornament" class="ornament">✦</div>
+        <p class="screen-eyebrow">THE ROYAL ARCHIVE</p>
+        <h2 id="end-title">DECREE COMPLETE</h2>
+
+        <p id="end-description" class="screen-description"></p>
+
+        <div class="final-stat">
+          <span>FINAL EXPERIENCE</span>
+          <strong><span id="final-xp">0</span> XP</strong>
+        </div>
+
+        <div id="restoration-seal" class="restoration-seal hidden">
+          <span class="seal-star">✦</span>
+          <strong>AURILIA RESTORED</strong>
+          <span>THE KINGDOM LIVES AGAIN</span>
+        </div>
+
+        <div class="end-actions">
+          <button id="restart-button" class="gold-button" type="button">
+            PLAY AGAIN
+          </button>
+
+          <a class="gold-button quest-button" href="main-quest.html">
+            ← RETURN TO QUEST
+          </a>
+        </div>
+
+        <a class="end-link" href="../index.html">
+          RETURN TO THE KINGDOM
+        </a>
+      </div>
+    </div>
+
+    <div id="loading-screen" class="loading-screen">
+      <div class="loading-emblem">✦</div>
+      <p>AWAKENING THE NINE REALMS</p>
+      <div class="loading-track"><span></span></div>
+    </div>
+  </div>
+
+  <script src="../knight-system.js"></script>
+  <script type="module" src="js/game-04.js"></script>
+  <script type="module" src="../firebase-leaderboard.js"></script>
+</body>
+</html>

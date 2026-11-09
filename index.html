@@ -1,0 +1,1039 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="theme-color" content="#09090d">
+
+  <title>The Fallen Kingdom: The Summoning of Aurilia</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+
+    .adventure-choice {
+
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 9999;
+
+      display: grid;
+
+      place-items: center;
+
+      padding: 24px;
+
+      background: rgba(3, 5, 12, 0.88);
+
+      backdrop-filter: blur(12px);
+
+      overflow-y: auto;
+
+    }
+
+
+
+    .adventure-choice.hidden {
+
+      display: none;
+
+    }
+
+
+
+    .adventure-choice-panel {
+
+      width: min(100%, 480px);
+
+      padding: 38px 32px;
+
+      text-align: center;
+
+      color: #eee5d5;
+
+      background:
+
+        radial-gradient(circle at top, #243047, #0d111c 75%);
+
+      border: 1px solid rgba(212, 177, 107, 0.5);
+
+      box-shadow: 0 20px 90px rgba(0, 0, 0, 0.7);
+
+    }
+
+
+
+    .adventure-choice-kicker {
+
+      color: #d5b779;
+
+      font-size: 11px;
+
+      letter-spacing: 3px;
+
+    }
+
+
+
+    #adventure-choice-title {
+
+      margin: 20px 0;
+
+      font-family: "Cinzel", Georgia, serif;
+
+      font-size: clamp(23px, 4vw, 32px);
+
+      color: #f0d9a5;
+
+    }
+
+
+
+    .adventure-choice-description {
+
+      color: #c5c0b8;
+
+      line-height: 1.7;
+
+      font-size: 14px;
+
+    }
+
+
+
+    .adventure-save {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 9px;
+
+      margin: 26px 0;
+
+      padding: 22px;
+
+      background: rgba(255, 255, 255, 0.04);
+
+      border: 1px solid rgba(212, 177, 107, 0.22);
+
+    }
+
+
+
+    .adventure-save span {
+
+      color: #c5a66d;
+
+      font-size: 11px;
+
+      letter-spacing: 2px;
+
+    }
+
+
+
+    .adventure-save strong {
+
+      font-family: "Cinzel", Georgia, serif;
+
+      font-size: 22px;
+
+    }
+
+
+
+    .adventure-save p {
+
+      margin: 0;
+
+      color: #edca83;
+
+      font-size: 19px;
+
+      font-weight: bold;
+
+    }
+
+
+
+    .adventure-save small {
+
+      color: #bbb4a7;
+
+    }
+
+
+
+    .adventure-choice-panel > button {
+
+      display: block;
+
+      width: 100%;
+
+      margin-top: 12px;
+
+      padding: 15px;
+
+      cursor: pointer;
+
+    }
+
+
+
+    .adventure-new-button {
+
+      color: #e9d4a9;
+
+      background: transparent;
+
+      border: 1px solid #a38a5c;
+
+      font-family: "Cinzel", Georgia, serif;
+
+      letter-spacing: 1px;
+
+    }
+
+
+
+    .adventure-new-button:hover {
+
+      background: rgba(212, 177, 107, 0.12);
+
+    }
+
+
+
+    .adventure-cancel {
+
+      color: #aaa397;
+
+      background: transparent;
+
+      border: none;
+
+    }
+
+
+
+    .adventure-warning {
+
+      margin-top: 15px;
+
+      font-size: 11px;
+
+      color: #aaa397;
+
+      line-height: 1.6;
+
+    }
+
+    .aurilia-mode-picker {display:grid;gap:10px;margin:18px 0 22px;text-align:left}
+
+    .aurilia-mode-option {display:flex;align-items:center;gap:12px;padding:13px 15px;border:1px solid rgba(212,177,107,.32);background:rgba(7,12,23,.58);color:#ecd8b0;cursor:pointer}
+
+    .aurilia-mode-option:has(input:checked){border-color:#e7c77f;background:rgba(192,150,71,.16)}
+
+    .aurilia-mode-option input{accent-color:#d9b66c;flex:none}
+
+    .aurilia-mode-option span{display:grid;gap:4px}
+
+    .aurilia-mode-option strong{font-size:12px;letter-spacing:1px}
+
+    .aurilia-mode-option small{font-size:11px;color:#c7c1b5}
+
+    #aurilia-classroom-fields[hidden]{display:none!important}
+
+
+
+    /* STEP 9 — ROYAL REGISTRATION: WIDE, SCROLL-SAFE DESIGN */
+
+    #knight-registration.scene {
+
+      position: fixed !important;
+
+      inset: 0 !important;
+
+      width: 100% !important;
+
+      height: 100dvh !important;
+
+      min-height: 0 !important;
+
+      overflow-x: hidden !important;
+
+      overflow-y: auto !important;
+
+      overscroll-behavior: contain;
+
+      display: none !important;
+
+      align-items: flex-start !important;
+
+      justify-content: center !important;
+
+      padding: clamp(78px, 11vh, 112px) 24px 36px !important;
+
+      box-sizing: border-box !important;
+
+    }
+
+    #knight-registration.scene.active { display: flex !important; }
+
+    #knight-registration .aurilia-registration-layout {
+
+      position: relative !important;
+
+      inset: auto !important;
+
+      transform: none !important;
+
+      margin: auto !important;
+
+      width: min(100%, 1050px) !important;
+
+      max-width: 1050px !important;
+
+      min-height: 0 !important;
+
+      height: auto !important;
+
+      display: grid !important;
+
+      grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr) !important;
+
+      align-items: stretch !important;
+
+      gap: 0 !important;
+
+      padding: 0 !important;
+
+      text-align: left !important;
+
+      border: 1px solid rgba(219,179,103,.5) !important;
+
+      border-radius: 3px !important;
+
+      background: linear-gradient(115deg, rgba(19,24,37,.98), rgba(8,12,22,.98)) !important;
+
+      box-shadow: 0 25px 90px rgba(0,0,0,.7) !important;
+
+      overflow: hidden !important;
+
+      box-sizing: border-box !important;
+
+    }
+
+    #knight-registration .aurilia-registration-intro {
+
+      display:flex; flex-direction:column; justify-content:center;
+
+      padding: clamp(28px,4vw,52px);
+
+      background: radial-gradient(ellipse at 45% 30%, rgba(148,113,53,.17), transparent 65%), linear-gradient(150deg, rgba(30,35,51,.8), rgba(9,14,24,.95));
+
+      border-right: 1px solid rgba(218,177,101,.25);
+
+    }
+
+    #knight-registration .aurilia-registration-intro .eyebrow {margin:0 0 24px; font-size:11px; letter-spacing:2.6px; color:#d8ba7e;}
+
+    #knight-registration .aurilia-registration-emblem {font-size:56px; line-height:1; color:#dbb978; margin-bottom:22px; text-shadow:0 0 30px rgba(215,174,90,.24);}
+
+    #knight-registration #registration-title {font-size:clamp(30px,3.5vw,49px) !important; line-height:1.14 !important; letter-spacing:.02em !important; margin:0 0 22px !important; color:#f2dfb5 !important; overflow-wrap:normal;}
+
+    #knight-registration #registration-title span {color:#d8b773;}
+
+    #knight-registration .aurilia-registration-description {margin:0; font-size:15px; line-height:1.85; color:#d2c8b8; max-width:360px;}
+
+    #knight-registration .aurilia-registration-footnote {margin-top:44px; font-size:10px; letter-spacing:1.8px; color:#b59a68; line-height:1.7;}
+
+    #knight-registration .aurilia-registration-form {padding:clamp(26px,3.6vw,45px); display:flex; flex-direction:column; gap:0; min-width:0;}
+
+    #knight-registration .aurilia-form-kicker {font-size:12px; letter-spacing:2.5px; color:#dfc48a; margin:0 0 16px; font-weight:700;}
+
+    #knight-registration .aurilia-mode-picker {display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:0 0 24px; text-align:left;}
+
+    #knight-registration .aurilia-mode-option {display:flex; align-items:flex-start; gap:9px; min-height:100px; padding:16px 13px; box-sizing:border-box; border:1px solid rgba(212,177,107,.35); background:rgba(10,16,28,.75); color:#e7c88a; cursor:pointer; transition:background .2s,border-color .2s;}
+
+    #knight-registration .aurilia-mode-option:has(input:checked) {background:rgba(180,138,66,.18);border-color:#e7c77f;}
+
+    #knight-registration .aurilia-mode-option input {accent-color:#d9b66c; flex:none; margin:2px 0 0; width:15px; height:15px;}
+
+    #knight-registration .aurilia-mode-option span {display:grid; gap:7px; min-width:0;}
+
+    #knight-registration .aurilia-mode-option strong {font-size:11px; line-height:1.4; letter-spacing:.8px;}
+
+    #knight-registration .aurilia-mode-option small {font-size:10px; line-height:1.5; letter-spacing:.6px; color:#c4b9a5;}
+
+    #knight-registration .aurilia-form-field {display:flex; flex-direction:column; gap:9px; margin-bottom:19px;}
+
+    #knight-registration .aurilia-form-field label {display:block; margin:0; color:#d9b877; font-size:11px; letter-spacing:1.6px; text-align:left;}
+
+    #knight-registration .aurilia-form-field input {display:block; width:100%; max-width:none; min-height:50px; padding:12px 15px; margin:0; box-sizing:border-box; text-align:left; font-size:15px; border:1px solid rgba(212,177,107,.5); border-radius:2px; background:rgba(5,10,19,.75); color:#f3e5c9;}
+
+    #knight-registration .aurilia-form-field input:focus {outline:1px solid #e7c77f; outline-offset:2px;}
+
+    #knight-registration #aurilia-classroom-fields[hidden] {display:none!important;}
+
+    #knight-registration .class-code-hint {margin:0; font-size:11px; line-height:1.5; color:#bdb2a2; text-align:left;}
+
+    #knight-registration #registration-error {margin:0 0 12px; min-height:0; font-size:12px; color:#f4a7a0; text-align:left;}
+
+    #knight-registration #registration-error:empty {display:none;}
+
+    #knight-registration #register-knight {width:100%; min-height:52px; margin:2px 0 0; font-size:13px; letter-spacing:1.2px;}
+
+    @media (max-width:760px) {
+
+      #knight-registration.scene {padding:76px 14px 22px!important;}
+
+      #knight-registration .aurilia-registration-layout {grid-template-columns:minmax(0,1fr)!important; max-width:520px!important;}
+
+      #knight-registration .aurilia-registration-intro {padding:25px 25px 20px; border-right:0; border-bottom:1px solid rgba(218,177,101,.25);}
+
+      #knight-registration .aurilia-registration-emblem {display:none;}
+
+      #knight-registration .aurilia-registration-intro .eyebrow {margin-bottom:11px;}
+
+      #knight-registration #registration-title {font-size:clamp(28px,7vw,36px)!important; margin-bottom:9px!important;}
+
+      #knight-registration .aurilia-registration-description {font-size:12px; line-height:1.6;}
+
+      #knight-registration .aurilia-registration-footnote {display:none;}
+
+      #knight-registration .aurilia-registration-form {padding:24px 25px 28px;}
+
+    }
+
+    @media (max-width:430px) {
+
+      #knight-registration .aurilia-mode-picker {grid-template-columns:1fr; gap:9px;}
+
+      #knight-registration .aurilia-mode-option {min-height:65px; padding:12px;}
+
+    }
+
+    .aurilia-resume-fields{display:grid;gap:9px;margin:18px 0;text-align:left}
+
+    .aurilia-resume-fields label{font-size:10px;letter-spacing:1.4px;color:#dfc48a}
+
+    .aurilia-resume-fields input{width:100%;min-height:43px;padding:10px 12px;border:1px solid rgba(212,177,107,.45);background:#0c1320;color:#f4e4c5;border-radius:2px;font:14px Inter,sans-serif}
+
+    #resume-error{color:#f3a5a0;font-size:12px;line-height:1.5;min-height:0;margin:2px 0}
+
+    #adventure-choice .adventure-save{display:none}
+
+    #adventure-choice .aurilia-destiny-paths{display:grid;gap:12px;margin:28px 0 12px}
+
+    #adventure-choice .aurilia-destiny-paths button{width:100%;min-height:56px;cursor:pointer}
+
+    #adventure-choice #resume-stage.hidden,#adventure-choice #destiny-paths.hidden{display:none}
+
+    #adventure-choice #resume-stage{animation:aurilia-archive-reveal .35s ease-out}
+
+    #adventure-choice .aurilia-archive-story{color:#e1c99a;font-family:Georgia,serif;font-style:italic;font-size:14px;line-height:1.75;margin:22px 0 18px}
+
+    #adventure-choice #resume-stage>button{display:block;width:100%;padding:15px;margin-top:12px;cursor:pointer}
+
+    @keyframes aurilia-archive-reveal{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+  </style>
+
+</head>
+
+<body>
+
+  <a href="games/teacher-dashboard.html"
+
+    class="teacher-access">
+
+    ♛ TEACHER DASHBOARD
+
+  </a>
+
+<main id="game-shell">
+
+  <div class="ambient-grain" aria-hidden="true"></div>
+
+  <button id="sound-toggle" class="sound-toggle" type="button" aria-pressed="true">♫ SOUND: ON</button>
+
+
+
+  <!-- SCENE 0: MAIN MENU -->
+
+  <section id="opening" class="scene opening active" aria-labelledby="main-title">
+
+    <div class="opening-shade"></div><div class="embers" aria-hidden="true"></div><div class="ash" aria-hidden="true"></div>
+
+    <div class="opening-content">
+
+      <p class="eyebrow reveal reveal-1">A DARK FANTASY ADVENTURE</p>
+
+      <p class="royal-kicker reveal reveal-1">✦ THE CHRONICLES OF AURILIA ✦</p>
+
+      <h1 id="main-title" class="reveal reveal-2">THE FALLEN<br><span>KINGDOM</span></h1>
+
+      <p class="subtitle reveal reveal-3">THE SUMMONING OF AURILIA</p>
+
+      <div class="ornament reveal reveal-3">✦ ━━━━━━━━━━━━━ ✦</div>
+
+      <p class="story-copy reveal reveal-3">An ancient kingdom is losing its knowledge.<br>A mysterious summons has found its way to you.<br><strong>Your decision will shape the fate of Aurilia.</strong></p>
+
+      <button
+
+        class="gold-button main-cta reveal reveal-4"
+
+        id="adventure-menu-button"
+
+        type="button"
+
+      >
+
+        ENTER THE ROYAL ARCHIVE <span>→</span>
+
+      </button>
+
+      <p class="small-note reveal reveal-4">A story of lost knowledge, dangerous choices and forgotten truths</p>
+
+    </div>
+
+    <div class="corner-seal" aria-hidden="true">A</div>
+
+    <div class="bottom-caption">CHAPTER I <span>•</span> THE KINGDOM IN ASHES</div>
+
+  </section>
+
+
+
+  <!-- SCENE 1: THE ROYAL SUMMONS -->
+
+  <section id="summons" class="scene summons" aria-labelledby="summons-title">
+
+    <div class="scene-shade"></div><div class="letter-glow" aria-hidden="true"></div>
+
+    <article class="royal-letter">
+
+      <div class="letter-seal" aria-hidden="true">✦</div>
+
+      <p class="letter-mark">✦ THE ROYAL ARCHIVE ✦</p>
+
+      <h2 id="summons-title">A SUMMONS FROM<br>THE KINGDOM OF AURILIA</h2>
+
+      <div class="thin-rule"></div>
+
+      <p>The kingdom is falling. Ancient knowledge has been lost. An outsider has been summoned to face a task that no knight has been able to complete.</p>
+
+      <p class="letter-question">Will you answer the call?</p>
+
+      <div class="button-row">
+
+        <button class="gold-button" data-go="court" type="button">✦ ACCEPT THE SUMMON</button>
+
+        <button class="danger-button" data-go="refusal" type="button">✕ REFUSE THE SUMMON</button>
+
+      </div>
+
+    </article>
+
+    <button class="text-button back-button" data-go="opening" type="button">← RETURN TO THE TITLE</button>
+
+  </section>
+
+
+
+  <!-- SCENE 2A: OFFICIAL ROUTE / ROYAL COURT -->
+
+  <section id="court" class="scene court" aria-labelledby="court-title">
+
+    <div class="court-vignette"></div><div class="gold-dust" aria-hidden="true"></div>
+
+    <div class="camera-frame" aria-hidden="true"></div>
+
+    <div class="court-caption">THE GRAND ROYAL HIGH COURT</div>
+
+    <!-- The Royal Archivist is a separate foreground character; no artificial doors. -->
+
+    <div class="archivist-stage" aria-label="The Royal Archivist stands before the royal throne">
+
+      <div class="archivist-halo"></div>
+
+      <div class="archivist-figure" aria-hidden="true">
+
+        <div class="archivist-staff"><i></i></div>
+
+        <div class="archivist-cloak"></div>
+
+        <div class="archivist-shoulders"></div>
+
+        <div class="archivist-neck"></div>
+
+        <div class="archivist-head">
+
+          <div class="archivist-hair"></div>
+
+          <div class="archivist-face"><i class="archivist-brow left"></i><i class="archivist-brow right"></i><i class="archivist-eye left"></i><i class="archivist-eye right"></i><i class="archivist-nose"></i><i class="archivist-moustache"></i><i class="archivist-beard"></i></div>
+
+        </div>
+
+        <div class="archivist-robe"><i class="archivist-collar left"></i><i class="archivist-collar right"></i><i class="archivist-chain"></i><i class="archivist-medallion">✦</i><i class="archivist-embroidery"></i></div>
+
+      </div>
+
+      <div class="archivist-nameplate">THE ROYAL ARCHIVIST</div>
+
+    </div>
+
+    <article class="dialogue-panel court-dialogue">
+
+      <p class="eyebrow">THE ROYAL COURT</p>
+
+      <h2 id="court-title">So, you have answered the call.</h2>
+
+      <p id="court-dialogue-text">Welcome to Aurilia, stranger. Our kingdom is on the brink of collapse. The answers we seek are hidden within the knowledge we have lost.</p>
+
+      <div class="dialogue-progress"><span id="dialogue-progress-fill"></span></div>
+
+      <button class="gold-button" id="court-next" type="button">CONTINUE <span>→</span></button>
+
+    </article>
+
+  </section>
+
+
+
+  <!-- SCENE 3A: STARTING PROFILE / NO GAME EMBEDDED YET -->
+
+  <section id="welcome" class="scene welcome" aria-labelledby="welcome-title">
+
+    <div class="scene-shade"></div><div class="welcome-rays" aria-hidden="true"></div>
+
+    <article class="message-panel welcome-panel">
+
+      <p class="eyebrow">THE ADVENTURE BEGINS</p>
+
+      <h2 id="welcome-title">WELCOME TO<br><span>AURILIA</span></h2>
+
+      <p id="welcome-copy">The Royal Archivist has entrusted you with the first step of your journey.</p>
+
+      <div class="player-stats">
+
+        <div><span>EXPERIENCE</span><strong>5 XP</strong></div>
+
+        <div><span>RANK</span><strong>Royal Candidate</strong></div>
+
+      </div>
+
+      <button class="gold-button wide-button" id="enter-kingdom" type="button">ENTER THE KINGDOM <span>→</span></button>
+
+    </article>
+
+  </section>
+
+
+
+  <!-- KNIGHT REGISTRATION — RESPONSIVE WIDE LAYOUT -->
+
+  <section id="knight-registration" class="scene knight-registration" aria-labelledby="registration-title">
+
+    <div class="scene-shade"></div>
+
+    <article class="message-panel welcome-panel aurilia-registration-layout">
+
+      <div class="aurilia-registration-intro">
+
+        <p class="eyebrow">✦ THE ROYAL ARCHIVE ✦</p>
+
+        <div class="aurilia-registration-emblem" aria-hidden="true">♛</div>
+
+        <h2 id="registration-title">CLAIM YOUR<br><span>KNIGHT IDENTITY</span></h2>
+
+        <p class="aurilia-registration-description">Before you enter the Four Royal Trials, your name must be recorded in the Royal Archives of Aurilia.</p>
+
+        <div class="aurilia-registration-footnote">✦ FOUR ROYAL TRIALS   ·   ONE DESTINY ✦</div>
+
+      </div>
+
+      <div class="aurilia-registration-form">
+
+        <p class="aurilia-form-kicker">CHOOSE YOUR PATH</p>
+
+        <div class="aurilia-mode-picker" role="radiogroup" aria-label="Adventure mode">
+
+          <label class="aurilia-mode-option">
+
+            <input type="radio" name="aurilia-mode" value="classroom" checked>
+
+            <span><strong>♛ ROYAL CLASSROOM</strong><small>Join your teacher's competition</small></span>
+
+          </label>
+
+          <label class="aurilia-mode-option">
+
+            <input type="radio" name="aurilia-mode" value="solo">
+
+            <span><strong>✦ SOLO ADVENTURE</strong><small>Practice freely, without a class code</small></span>
+
+          </label>
+
+        </div>
+
+        <div class="aurilia-form-field">
+
+          <label for="knight-name">YOUR KNIGHT NAME</label>
+
+          <input id="knight-name" type="text" maxlength="24" autocomplete="off" placeholder="Enter your Knight name">
+
+        </div>
+
+        <div id="aurilia-classroom-fields" class="aurilia-form-field">
+
+          <label for="royal-class-code">YOUR ROYAL CLASS CODE</label>
+
+          <input id="royal-class-code" type="text" maxlength="7" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="e.g. AU-DB8Q" aria-describedby="class-code-hint">
+
+          <p id="class-code-hint" class="class-code-hint">Enter the class code provided by your teacher.</p>
+
+        </div>
+
+        <div class="aurilia-form-field">
+
+          <label for="knight-pin">YOUR PRIVATE RESUME PIN (6 DIGITS)</label>
+
+          <input id="knight-pin" type="password" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="new-password" placeholder="Choose a 6-digit PIN">
+
+          <p class="class-code-hint">Remember this PIN to resume your Knight on this browser. Do not share it.</p>
+
+        </div>
+
+        <p id="registration-error" role="alert"></p>
+
+        <button id="register-knight" class="gold-button wide-button" type="button">✦ BEGIN MY LEGACY →</button>
+
+      </div>
+
+    </article>
+
+  </section>
+
+  <!-- SCENE 2B: REFUSAL ROUTE -->
+
+  <section id="refusal" class="scene refusal" aria-labelledby="refusal-title">
+
+    <div class="refusal-shade"></div><div class="black-flames" aria-hidden="true"></div><div class="warning-scan" aria-hidden="true"></div>
+
+    <article class="message-panel refusal-panel">
+
+      <p class="eyebrow danger-eyebrow">THE REJECTED SUMMONS</p>
+
+      <p class="player-line">“This is not my kingdom. Its troubles are not mine.”</p>
+
+      <div class="burning-seal" aria-hidden="true">✦</div>
+
+      <p class="warning-text">⚠ WARNING: AURILIA'S DEFENCES HAVE FALLEN</p>
+
+      <h2 id="refusal-title">THE DARKNESS<br>HAS FOUND YOU</h2>
+
+      <p class="archivist-voice">“You may refuse the summons, stranger… But the darkness has already found you.”</p>
+
+      <div class="button-row">
+
+        <button class="danger-button" data-go="ending" type="button">TURN BACK</button>
+
+        <button class="gold-button" data-go="hidden-path" type="button">INVESTIGATE THE DISTURBANCE <span>→</span></button>
+
+      </div>
+
+    </article>
+
+  </section>
+
+
+
+  <!-- ENDING: KINGDOM FORGOTTEN -->
+
+  <section id="ending" class="scene ending" aria-labelledby="ending-title">
+
+    <div class="ending-smoke" aria-hidden="true"></div>
+
+    <article class="message-panel ending-panel">
+
+      <p class="eyebrow">ENDING UNLOCKED</p>
+
+      <h2 id="ending-title">THE KINGDOM<br><span>FORGOTTEN</span></h2>
+
+      <p>You chose to walk away. Aurilia's fate remains unknown. Beyond the city walls, the last lights of the kingdom fade into the smoke.</p>
+
+      <div class="button-row">
+
+        <button class="gold-button" data-go="opening" type="button">RETURN TO MAIN MENU</button>
+
+        <button class="dark-button" data-go="summons" type="button">TRY AGAIN</button>
+
+      </div>
+
+    </article>
+
+  </section>
+
+
+
+  <!-- SECRET ROUTE: HIDDEN PATH -->
+
+  <section id="hidden-path" class="scene hidden-path" aria-labelledby="hidden-title">
+
+    <div class="path-shade"></div><div class="path-motes" aria-hidden="true"></div>
+
+    <div class="path-heading"><p class="eyebrow">UNOFFICIAL ENTRY · SECRET ROUTE</p><h2 id="hidden-title">THE HIDDEN PATH</h2></div>
+
+    <div class="path-archivist portrait-frame" aria-label="The Royal Archivist looks furious">
+
+      <img src="assets/archivist-angry.webp" alt="The Royal Archivist glares sternly from the shadows">
+
+      <span>THE ARCHIVIST IS NOT IMPRESSED</span>
+
+    </div>
+
+    <article class="dialogue-panel path-dialogue">
+
+      <p class="eyebrow">THE FORGOTTEN ENTRANCE</p>
+
+      <h3>The bell has led you beneath the ruined walls.</h3>
+
+      <p>Three ancient seals guard the passage. Answer each mathematical riddle correctly to restore the runes. You must solve all three before the hidden gate can be unlocked.</p>
+
+      <div class="path-objective"><span>ANCIENT SEALS</span><strong id="seal-count">0 / 3 RESTORED</strong></div>
+
+      <button class="gold-button" id="begin-trial" type="button">BEGIN THE TRIAL <span>→</span></button>
+
+    </article>
+
+  </section>
+
+
+
+  <!-- SECRET ROUTE: THREE REQUIRED QUESTIONS -->
+
+  <section id="trial" class="scene trial" aria-labelledby="trial-title">
+
+    <div class="trial-backdrop"></div>
+
+    <div class="trial-archivist portrait-frame" aria-label="The Royal Archivist watches the trial">
+
+      <img src="assets/archivist-smirk.jpg" alt="The Royal Archivist watches with a knowing smirk">
+
+      <span>PROVE YOUR WORTH</span>
+
+    </div>
+
+    <article class="trial-card">
+
+      <div class="trial-topline"><span>THE TRIAL OF TRUST</span><span id="trial-number">SEAL 01 / 03</span></div>
+
+      <div class="rune-orbit" aria-hidden="true"><span>✦</span></div>
+
+      <p class="eyebrow">ANCIENT MATHEMATICAL SEAL</p>
+
+      <h2 id="trial-title">Restore the first seal</h2>
+
+      <p id="trial-question" class="trial-question">Which of these numbers is a perfect square?</p>
+
+      <div id="trial-answers" class="trial-answers"></div>
+
+      <p id="trial-feedback" class="trial-feedback" aria-live="polite">Choose your answer carefully.</p>
+
+      <div class="trial-progress" aria-label="Trial progress"><span id="trial-progress-fill"></span></div>
+
+      <button id="trial-continue" class="gold-button hidden" type="button">NEXT SEAL <span>→</span></button>
+
+    </article>
+
+  </section>
+
+
+
+  <!-- SECRET ROUTE UNLOCK -->
+
+  <section id="secret-court" class="scene secret-court" aria-labelledby="secret-court-title">
+
+    <div class="scene-shade"></div><div class="secret-glow" aria-hidden="true"></div>
+
+    <div class="secret-archivist portrait-frame" aria-label="The Royal Archivist gives a knowing smirk">
+
+      <img src="assets/archivist-smirk.jpg" alt="The Royal Archivist smirks as the hidden gate opens">
+
+      <span>THE ROYAL ARCHIVIST</span>
+
+    </div>
+
+    <article class="dialogue-panel secret-dialogue">
+
+      <p class="eyebrow">THE HIDDEN GATE HAS OPENED</p>
+
+      <h2 id="secret-court-title">You refused our summons, yet here you stand.</h2>
+
+      <p id="secret-dialogue-text">Very well. If you wish to enter Aurilia, prove that your intentions are true.</p>
+
+      <button class="gold-button" id="secret-meet-next" type="button">CONTINUE <span>→</span></button>
+
+    </article>
+
+  </section>
+
+
+
+  <!-- NEW ADVENTURE / CONTINUE ADVENTURE -->
+
+  <div id="adventure-choice" class="adventure-choice hidden" role="dialog"
+
+      aria-modal="true" aria-labelledby="adventure-choice-title">
+
+
+
+    <div class="adventure-choice-panel">
+
+
+
+      <p class="adventure-choice-kicker">
+
+        ✦ THE ROYAL ARCHIVE ✦
+
+      </p>
+
+
+
+      <h2 id="adventure-choice-title">
+
+        YOUR DESTINY AWAITS
+
+      </h2>
+
+
+
+      <p class="adventure-choice-description">
+
+        A new journey awaits beyond the kingdom walls.
+
+        <br><br>
+
+        Your destiny begins with a new Knight identity.
+
+        Answer the Royal Summons, choose your path,
+
+        and claim your name before facing the Four Royal Trials.
+
+        <br><br>
+
+        Your previous Knight's identity, XP, completed trials,
+
+        and Hall of Champions records will remain safely preserved.
+
+      </p>
+
+
+
+      <div class="adventure-save">
+
+        <span>YOUR LAST ADVENTURE</span>
+
+        <strong id="adventure-player-name">Knight</strong>
+
+        <p id="adventure-player-xp">0 XP</p>
+
+        <small id="adventure-player-progress">
+
+          0 of 4 Trials Completed
+
+        </small>
+
+      </div>
+
+
+
+      <div class="aurilia-destiny-paths" id="destiny-paths">
+
+        <button id="reveal-resume" class="gold-button" type="button">✦ CONTINUE YOUR LEGACY →</button>
+
+        <button id="new-adventure" class="adventure-new-button" type="button">BEGIN A NEW ADVENTURE</button>
+
+      </div>
+
+      <div id="resume-stage" class="hidden" aria-hidden="true">
+
+        <p class="aurilia-archive-story">“The Royal Archive remembers every Knight. Speak your name, reveal your royal seal, and reclaim the destiny that awaits you.”</p>
+
+      <div class="aurilia-resume-fields">
+
+        <label for="resume-name">YOUR KNIGHT NAME</label>
+
+        <input id="resume-name" type="text" maxlength="24" autocomplete="off" placeholder="Enter your existing Knight name">
+
+        <label for="resume-class-code">ROYAL CLASS CODE (CLASSROOM ONLY)</label>
+
+        <input id="resume-class-code" type="text" maxlength="7" autocomplete="off" placeholder="AU-XXXX">
+
+        <label for="resume-pin">YOUR PRIVATE RESUME PIN</label>
+
+        <input id="resume-pin" type="password" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="6-digit PIN">
+
+        <p id="resume-error" role="alert"></p>
+
+      </div>
+
+      <button id="continue-adventure" class="gold-button" type="button">VERIFY & RESUME MY KNIGHT →</button>
+
+      <button id="back-to-destiny" class="adventure-new-button" type="button">← CHOOSE ANOTHER PATH</button>
+
+      </div>
+
+
+
+      <button id="cancel-adventure" class="adventure-cancel" type="button">
+
+        ← RETURN TO TITLE
+
+      </button>
+
+
+
+      <p class="adventure-warning">
+
+        Your registered Knight's records will remain safe.
+
+        A new player may explore Aurilia as an Unknown Wanderer
+
+        and register after completing Trial I.
+
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <div id="screen-flash" class="screen-flash" aria-hidden="true"></div>
+
+</main>
+
+<script src="knight-system.js"></script>
+
+<script type="module" src="knight-registration-firebase.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

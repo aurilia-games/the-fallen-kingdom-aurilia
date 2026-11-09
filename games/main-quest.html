@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090f">
+  <meta name="description" content="Enter the fallen kingdom of Aurilia and choose your royal trial.">
+
+  <title>Aurilia | The Royal Campaign</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/quest.css">
+  <script src="../knight-system.js" defer></script>
+  <script src="js/quest.js?v=3" defer></script>
+</head>
+
+<body>
+  <main id="campaign">
+    <div class="world-background" aria-hidden="true">
+      <div class="world-image"></div>
+      <div class="world-vignette"></div>
+      <div class="world-light"></div>
+      <div class="world-fog fog-one"></div>
+      <div class="world-fog fog-two"></div>
+      <canvas id="embers"></canvas>
+      <div class="film-grain"></div>
+    </div>
+
+    <header class="topbar">
+      <a class="brand" href="../index.html" aria-label="Return to Aurilia opening">
+        <span class="brand-symbol">✦</span>
+        <span>
+          <strong>AURILIA</strong>
+          <small>THE FALLEN KINGDOM</small>
+        </span>
+      </a>
+
+      <div class="chapter-label">
+        <span class="chapter-dot"></span>
+        ROYAL CAMPAIGN
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: flex-end;">
+        
+        <a
+          href="leaderboard.html"
+          class="return-link"
+          style="
+            color: #f1d9a0;
+            border: 1px solid rgba(199, 168, 106, 0.55);
+            border-radius: 5px;
+            padding: 10px 14px;
+            text-decoration: none;
+          "
+        >
+          <span aria-hidden="true">♛</span>
+          <span>KNIGHT LEADERBOARD</span>
+        </a>
+
+        <a class="return-link" href="../index.html">
+          <span aria-hidden="true">↶</span>
+          <span>RETURN TO SUMMONS</span>
+        </a>
+
+      </div>
+    </header>
+
+    <section class="intro">
+      <div class="intro-copy">
+        <p class="eyebrow reveal reveal-one">THE KINGDOM AWAITS ITS HEIR</p>
+
+        <h1 class="reveal reveal-two">
+          FOUR TRIALS<span class="title-period">.</span>
+          <span class="title-second">ONE DESTINY.</span>
+        </h1>
+
+        <p class="intro-description reveal reveal-three">
+          The crown has fallen. Ancient powers sleep beneath the ruins.
+          Choose your path, restore the lost magic, and reclaim Aurilia.
+        </p>
+      </div>
+
+      <div class="campaign-info reveal reveal-four">
+        <div class="info-block">
+          <span class="info-label">KNIGHT RANK</span>
+          <strong id="knight-rank">Royal Candidate</strong>
+        </div>
+
+        <span class="info-divider"></span>
+
+        <div class="info-block">
+          <span class="info-label">TRIALS DISCOVERED</span>
+          <strong id="discovered-count">00 <small>/ 04</small></strong>
+        </div>
+
+        <span class="info-divider"></span>
+
+        <div class="info-block">
+          <span class="info-label">TOTAL XP</span>
+          <strong id="total-xp">0 <small>/ 515 XP</small></strong>
+        </div>
+
+        <span class="info-divider"></span>
+
+        <div class="info-block">
+          <span class="info-label">KINGDOM STATUS</span>
+          <strong class="status-fallen" id="kingdom-status">
+            <span></span> FALLEN
+          </strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="location-section" aria-labelledby="location-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">THE ROYAL ARCHIVE</p>
+          <h2 id="location-title">Choose your trial</h2>
+        </div>
+        <p class="section-hint">
+          <span class="hint-desktop">SELECT A LOCATION TO INVESTIGATE</span>
+          <span class="hint-mobile">TAP A LOCATION TO EXPLORE</span>
+        </p>
+      </div>
+
+      <div class="location-grid">
+        <button class="location-card location-one"
+          type="button"
+          data-location="grounds"
+          data-number="01"
+          aria-label="Investigate The Shattered Grounds">
+          <img class="location-image"
+            src="../assets/floating-tiles.webp"
+            alt=""
+            fetchpriority="high">
+          <span class="location-wash"></span>
+          <span class="location-coordinate">SECTOR 01 <i>•</i> THE OUTER REALM</span>
+          <span class="location-bottom">
+            <span class="location-number">I</span>
+            <span class="location-title-wrap">
+              <span class="location-kicker">THE BROKEN COURTYARD</span>
+              <span class="location-name">The Shattered Grounds</span>
+              <span class="location-subtitle">Where the first stones fell</span>
+            </span>
+            <span class="location-arrow" aria-hidden="true">↗</span>
+          </span>
+          <span class="location-edge"></span>
+        </button>
+
+        <button class="location-card location-two"
+          type="button"
+          data-location="forge"
+          data-number="02"
+          aria-label="Investigate The Forgotten Labyrinth">
+          <img class="location-image"
+            src="../assets/maze-kingdom.webp"
+            alt=""
+            loading="lazy">
+          <span class="location-wash"></span>
+          <span class="location-coordinate">SECTOR 02 <i>•</i> THE ANCIENT QUARTER</span>
+          <span class="location-bottom">
+            <span class="location-number">II</span>
+            <span class="location-title-wrap">
+              <span class="location-kicker">THE FORGOTTEN LABYRINTH</span>
+              <span class="location-name">The Lost Passage</span>
+              <span class="location-subtitle">Every turn hides a secret</span>
+            </span>
+            <span class="location-arrow" aria-hidden="true">↗</span>
+          </span>
+          <span class="location-edge"></span>
+        </button>
+
+        <button class="location-card location-three"
+          type="button"
+          data-location="bridge"
+          data-number="03"
+          aria-label="Investigate Starfall Citadel">
+          <img class="location-image"
+            src="../assets/star-dragon.png"
+            alt=""
+            loading="lazy">
+          <span class="location-wash"></span>
+          <span class="location-coordinate">SECTOR 03 <i>•</i> THE FORGOTTEN CITADEL</span>
+          <span class="location-bottom">
+            <span class="location-number">III</span>
+            <span class="location-title-wrap">
+              <span class="location-kicker">THE TWIN-RUNE TRIAL</span>
+              <span class="location-name">Starfall Citadel</span>
+              <span class="location-subtitle">The dragon guards the ancient runes</span>
+            </span>
+            <span class="location-arrow" aria-hidden="true">↗</span>
+          </span>
+          <span class="location-edge"></span>
+        </button>
+
+        <button class="location-card location-four"
+          type="button"
+          data-location="throne"
+          data-number="04"
+          aria-label="Investigate The Betrayer's Throne">
+          <img class="location-image"
+            src="../assets/gate-perfect.png"
+            alt=""
+            loading="lazy">
+          <span class="location-wash"></span>
+          <span class="location-coordinate">SECTOR 04 <i>•</i> THE ROYAL SANCTUM</span>
+          <span class="location-bottom">
+            <span class="location-number">IV</span>
+            <span class="location-title-wrap">
+              <span class="location-kicker">THE FINAL CONFRONTATION</span>
+              <span class="location-name">The Betrayer's Throne</span>
+              <span class="location-subtitle">The crown remembers everything</span>
+            </span>
+            <span class="location-arrow" aria-hidden="true">↗</span>
+          </span>
+          <span class="location-edge"></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ROYAL RANK SYSTEM -->
+    <section class="royal-ranks">
+      <p class="royal-ranks-kicker">✦ THE PATH TO ROYALTY ✦</p>
+      <h2>ROYAL RANK SYSTEM</h2>
+      <p class="royal-ranks-subtitle">
+        Earn XP. Ascend the royal hierarchy.
+      </p>
+
+      <details class="royal-ranks-details">
+        <summary>
+          <span>♛ VIEW ALL ROYAL RANKS</span>
+          <span class="rank-arrow">⌄</span>
+        </summary>
+
+        <div class="royal-ranks-list">
+          <div><span>Royal Candidate</span><strong>0 XP</strong></div>
+          <div><span>Royal Initiate</span><strong>20 XP</strong></div>
+          <div><span>Seal Keeper</span><strong>60 XP</strong></div>
+          <div><span>Knight of Aurilia</span><strong>120 XP</strong></div>
+          <div><span>Royal Guardian</span><strong>220 XP</strong></div>
+          <div><span>Crown Champion</span><strong>350 XP</strong></div>
+          <div><span>Sovereign of Aurilia</span><strong>450 XP</strong></div>
+        </div>
+      </details>
+    </section>
+
+    <footer class="footer">
+      <span>KNOWLEDGE IS YOUR WEAPON</span>
+      <span class="footer-crest">✧</span>
+      <span>COURAGE IS YOUR CHOICE</span>
+    </footer>
+
+    <div class="selection-flash" id="selection-flash" aria-hidden="true"></div>
+
+    <section class="briefing" id="briefing"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="briefing-title"
+      aria-hidden="true">
+      <button class="briefing-close" id="briefing-close"
+        type="button" aria-label="Close mission briefing">×</button>
+
+      <div class="briefing-image" id="briefing-image">
+        <div class="briefing-image-shade"></div>
+        <span class="briefing-chapter" id="briefing-chapter">ROYAL ARCHIVE · 01</span>
+      </div>
+
+      <div class="briefing-content">
+        <p class="eyebrow" id="briefing-eyebrow">FIRST ROYAL TRIAL</p>
+        <h2 id="briefing-title">The Shattered Grounds</h2>
+        <p class="briefing-description" id="briefing-description"></p>
+
+        <div class="briefing-objective">
+          <span class="objective-icon">✦</span>
+          <div>
+            <span class="info-label">YOUR OBJECTIVE</span>
+            <strong id="briefing-objective"></strong>
+          </div>
+        </div>
+
+        <div class="briefing-tags">
+          <span id="briefing-standard">DSKP 3.1.2</span>
+          <span id="briefing-style">EXPLORATION</span>
+        </div>
+
+        <p class="briefing-note" id="briefing-note">
+          This trial is being prepared for your journey.
+        </p>
+
+        <button class="briefing-enter" id="briefing-enter" type="button">
+          <span>ENTER THE TRIAL</span>
+          <span aria-hidden="true">↗</span>
+        </button>
+
+        </div>
+        </section>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <button class="sound-toggle" id="sound-toggle"
+      type="button" aria-pressed="false">
+      <span class="sound-icon" aria-hidden="true">♫</span>
+      <span id="sound-label">SOUND OFF</span>
+    </button>
+  </main>
+</body>
+</html>

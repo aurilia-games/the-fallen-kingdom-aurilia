@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Royal Teacher Dashboard | Aurilia</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
+:root{color-scheme:dark;--gold:#dfbd7e;--line:#8d724a;--muted:#c0b8a8;--panel:rgba(9,14,27,.95)}*{box-sizing:border-box}body{margin:0;min-height:100vh;color:#f3e6c8;font-family:Inter,sans-serif;background:linear-gradient(rgba(5,8,18,.83),rgba(5,8,18,.96)),url('../assets/royal-court.webp') center/cover fixed,#080c17;padding:30px 22px}main{max-width:1250px;margin:auto}.top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:25px}.eyebrow{color:#cba86e;font-size:11px;letter-spacing:3px;text-transform:uppercase}h1,h2,h3{font-family:Cinzel,Georgia,serif;color:#f1d69e}h1{font-size:clamp(27px,4vw,45px);margin:12px 0}h2{font-size:23px;margin:4px 0 15px}.subtitle{color:var(--muted);line-height:1.7;font-size:14px;max-width:700px}.back{color:#e2c58f;text-decoration:none;font-size:12px;letter-spacing:1px;margin-top:12px}.layout{display:grid;grid-template-columns:minmax(310px,400px) minmax(0,1fr);gap:22px;align-items:start}.panel{background:var(--panel);border:1px solid var(--line);box-shadow:0 20px 65px #0009;padding:28px;min-width:0}.left-stack{display:grid;gap:22px}label{display:block;color:var(--gold);font-size:11px;letter-spacing:1.8px;margin:18px 0 9px;font-weight:700}input{width:100%;padding:14px;background:#101a2a;border:1px solid #6b5739;border-radius:3px;color:#fff3d8;font:14px Inter,sans-serif;outline:none}input:focus{border-color:#f0d59d}button{padding:14px 18px;background:linear-gradient(110deg,#b58a4d,#efd39a,#b58a4d);color:#17120d;border:1px solid #e5c68b;font-weight:700;letter-spacing:.5px;cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}.outline{background:transparent;color:#f0d59d;border:1px solid #9c8055}.wide{width:100%;margin-top:16px}.small{font-size:12px;color:var(--muted);line-height:1.7}.message{min-height:18px;color:#f0b2a5;font-size:12px;line-height:1.5;margin-top:12px}.code{font-family:Cinzel,serif;font-size:clamp(24px,4vw,34px);letter-spacing:3px;color:#f5dba4;overflow-wrap:anywhere}.result{margin-top:20px;padding:16px;border:1px solid #79603c;background:#111a2a}.result[hidden], [hidden]{display:none!important}.auth{padding-bottom:18px;border-bottom:1px solid #58472f}.class-controls{display:grid;grid-template-columns:1fr auto;gap:8px}.class-controls button{margin:0}.class-list{display:grid;gap:8px;margin-top:13px;max-height:230px;overflow:auto}.class-choice{display:flex;justify-content:space-between;gap:10px;align-items:center;text-align:left;padding:12px;background:#111a2a;border:1px solid #574c3c;color:#f3e6c8;width:100%;font-size:12px}.class-choice.selected{border-color:#e6c58a;background:#2a241d}.class-choice strong{display:block;font-size:13px;margin-bottom:5px}.class-choice small{color:var(--muted)}.status{display:inline-block;border:1px solid #8b7856;color:#e5c88e;padding:5px 9px;font-size:10px;letter-spacing:1px;text-transform:uppercase}.leader-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:22px 0}.stat{padding:15px 10px;background:#111a2a;border:1px solid #514633;text-align:center}.stat strong{display:block;font:700 25px Cinzel,serif;color:#f5dba4}.stat span{font-size:10px;color:var(--muted);letter-spacing:1px}.table-scroll{overflow-x:auto}.ranking{width:100%;border-collapse:collapse;min-width:520px;text-align:left}.ranking th{color:#d5b779;font-size:10px;letter-spacing:1.5px;border-bottom:1px solid #8b724b;padding:13px 10px}.ranking td{padding:15px 10px;border-bottom:1px solid #403a34;font-size:13px}.ranking td:first-child{font:700 19px Cinzel,serif;color:#e8c88d}.ranking td:last-child{font-weight:700;color:#f5dba4;text-align:right}.ranking th:last-child{text-align:right}.rank{font-size:11px;color:#bcb8b2;margin-top:4px}.empty{text-align:center;padding:40px 15px;color:var(--muted);font-size:13px;line-height:1.7}.note{font-size:11px;color:#b7b0a5;line-height:1.7;border-top:1px solid #534734;margin-top:22px;padding-top:14px}.live{color:#a9e0bd;font-size:11px}#teacher-google-login{width:100%}@media(max-width:850px){.layout{grid-template-columns:1fr}.panel{padding:22px}.summary{gap:7px}.stat strong{font-size:20px}}@media(max-width:450px){body{padding:16px 10px}.class-controls{grid-template-columns:1fr}.summary{grid-template-columns:repeat(3,minmax(0,1fr))}.stat{padding:12px 4px}}
+
+.competition{margin:19px 0;padding:18px;border:1px solid #80643d;background:#141b2a}.competition h3{margin:0 0 10px;font-size:18px}.competition .clock{font:700 clamp(24px,3vw,36px) Cinzel,serif;color:#f5dba4;letter-spacing:2px}.competition .details{color:#bcb8b2;font-size:12px;line-height:1.7}.competition button{margin-top:12px;width:100%}.competition .danger{border-color:#cda16c;background:#3b2522;color:#f3d7bc}.competition .warn{color:#f4c5a6}.export-actions{margin:16px 0 20px}.export-actions button{width:100%;padding:13px}.export-actions .small{margin:7px 0 0}
+
+/* Aurilia royal in-page confirmation dialog: no browser confirm/prompt/alert */
+.royal-modal[hidden]{display:none!important}
+.royal-modal{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:20px;background:rgba(1,4,12,.86);backdrop-filter:blur(7px)}
+.royal-modal-card{width:min(510px,100%);max-height:calc(100vh - 40px);overflow:auto;background:linear-gradient(145deg,#121b2d,#080d19);border:1px solid #c4a16b;box-shadow:0 25px 95px #000b;padding:clamp(22px,4vw,36px)}
+.royal-modal-card h2{font-family:Cinzel,serif;color:#f1d49a;margin:12px 0;font-size:clamp(20px,3vw,27px)}
+.royal-modal-card p{color:#d0c5b3;line-height:1.7;font-size:13px;white-space:pre-line}
+.royal-modal-card .modal-eyebrow{font-size:11px;letter-spacing:2px;color:#d7b77c}
+.royal-modal-card label{display:block;color:#e7c58b;font-size:12px;margin:18px 0 7px}
+.royal-modal-card input{width:100%;padding:13px;background:#101a2b;border:1px solid #8c6b45;color:#fff3d8}
+.royal-modal-actions{display:flex;gap:12px;margin-top:25px}
+.royal-modal-actions button{flex:1;min-width:0;padding:14px 10px;cursor:pointer}
+.royal-modal-actions .modal-cancel{background:transparent;border:1px solid #977b54;color:#ead6b2}
+.royal-modal-actions .modal-accept{background:linear-gradient(110deg,#b58a4d,#efd39a);border:1px solid #e6c58a;color:#16110b;font-weight:700}
+.royal-modal-actions .modal-accept.destructive{background:#8c3035;color:white;border-color:#ce6d72}
+.royal-modal-actions button:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:440px){.royal-modal-actions{flex-direction:column}}
+</style>
+</head>
+<body><main>
+<header class="top"><div><p class="eyebrow">✦ THE FALLEN KINGDOM ✦</p><h1>ROYAL TEACHER DASHBOARD</h1><p class="subtitle">Create your Royal Classroom, monitor every Knight's journey, and witness the Hall of Champions in real time.</p></div><a class="back" href="main-quest.html">← RETURN TO THE KINGDOM</a></header>
+<div class="layout"><div class="left-stack">
+<section class="panel"><p class="eyebrow">✦ ROYAL ACCESS</p><div class="auth"><button id="teacher-google-login" type="button">SIGN IN WITH GOOGLE</button><p id="teacher-login-status" class="small">Sign in with Google to manage your classroom.</p></div><h2 style="margin-top:23px">CREATE A CLASSROOM</h2><form id="create-form"><label for="class-name">CLASSROOM NAME</label><input id="class-name" placeholder="e.g. 1 Amanah" maxlength="50" required><button class="wide" id="create-button" type="submit" disabled>CREATE CLASSROOM →</button></form><section id="result" class="result" hidden aria-live="polite"><p class="eyebrow">YOUR ROYAL CLASS CODE</p><div id="generated-code" class="code"></div><p id="class-display" class="small"></p><p class="small">Competition duration: 6 hours</p><button id="copy-button" class="outline wide" type="button">COPY CLASS CODE</button><p class="small">Share this code with your students.</p></section><p id="message" class="message" role="status"></p></section>
+<section class="panel"><p class="eyebrow">✦ YOUR ROYAL RECORDS</p><h2>SELECT CLASSROOM</h2><p class="small">Previously created classes on this browser appear below. You can also enter an existing class code.</p><label for="lookup-code">ROYAL CLASS CODE</label><div class="class-controls"><input id="lookup-code" placeholder="AU-DB8Q" maxlength="7" autocapitalize="characters" spellcheck="false"><button id="load-class" type="button" class="outline">VIEW</button></div><div id="class-list" class="class-list"></div><details style="margin-top:15px"><summary class="small" style="cursor:pointer;color:#dfbd7e">ARCHIVED CLASSROOMS</summary><div id="archive-list" class="archive-list"></div></details><p id="lookup-message" class="message" role="status"></p></section>
+</div><section class="panel"><div class="leader-top"><div><p class="eyebrow">✦ ROYAL CLASSROOM ✦</p><h2>HALL OF CHAMPIONS</h2><p id="selected-class" class="small">Select a classroom to view its Knights.</p></div><div><span id="class-status" class="status">NO CLASS</span><p id="live-state" class="live" aria-live="polite"></p></div></div><section class="competition" aria-label="Competition controls"><h3>ROYAL COMPETITION · 6 HOURS</h3><div id="competition-clock" class="clock">— — : — — : — —</div><p id="competition-details" class="details">Select a classroom to manage the competition.</p><button id="start-competition" type="button" hidden>START COMPETITION</button><button id="end-competition" class="danger" type="button" hidden>END COMPETITION EARLY</button><p id="competition-message" class="message" role="status"></p><div class="manage-actions"><button id="archive-classroom" type="button" class="outline" hidden>ARCHIVE CLASSROOM</button><button id="delete-classroom" type="button" class="delete" hidden>DELETE PERMANENTLY</button></div></section><div class="export-actions"><button id="download-results" type="button" class="outline" disabled>DOWNLOAD RESULTS (.CSV)</button><p class="small">Download fresh Firestore records anytime. Scheduled = participant list; Active = live results; Ended/Archived = frozen results. Save the CSV before deleting a class.</p></div><div class="summary"><div class="stat"><strong id="stat-knights">0</strong><span>KNIGHTS</span></div><div class="stat"><strong id="stat-xp">0</strong><span>TOP XP</span></div><div class="stat"><strong id="stat-completed">0</strong><span>TRIALS DONE</span></div></div><div class="table-scroll"><table class="ranking"><thead><tr><th>PLACE</th><th>KNIGHT / RANK</th><th>TRIALS</th><th>XP</th></tr></thead><tbody id="ranking-body"></tbody></table></div><div id="empty-state" class="empty">No classroom selected yet.</div><p class="note">Knights can register before START. Official XP begins at zero when competition starts. Only ACTIVE competition writes are accepted; after six hours, official scores are frozen. The countdown uses the device clock.</p></section></div></main>
+
+<div id="royal-modal" class="royal-modal" hidden aria-hidden="true">
+  <section class="royal-modal-card" role="dialog" aria-modal="true" aria-labelledby="royal-modal-title" aria-describedby="royal-modal-desc" tabindex="-1">
+    <div class="modal-eyebrow">✦ ROYAL CLASSROOM MANAGEMENT ✦</div>
+    <h2 id="royal-modal-title">Confirm Action</h2>
+    <p id="royal-modal-desc"></p>
+    <div id="royal-modal-verify" hidden>
+      <label for="royal-modal-code">TYPE THE EXACT CLASS CODE TO CONFIRM</label>
+      <input id="royal-modal-code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="7" />
+    </div>
+    <div class="royal-modal-actions">
+      <button id="royal-modal-cancel" class="modal-cancel" type="button">CANCEL</button>
+      <button id="royal-modal-accept" class="modal-accept" type="button">CONFIRM</button>
+    </div>
+  </section>
+</div>
+<script type="module">
+import {db,auth,authReady,signInTeacher} from '../firebase-config.js';
+import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
+import {doc,getDoc,runTransaction,serverTimestamp,collection,onSnapshot,updateDoc,getDocs,writeBatch,deleteDoc} from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
+const $=id=>document.getElementById(id);
+
+// Custom, keyboard-accessible confirmation modal; replaces native browser dialogs.
+let modalPending = false;
+function royalConfirm({title, description, confirmText='CONFIRM', destructive=false, verifyCode=null}) {
+  if (modalPending) return Promise.resolve(false);
+  modalPending = true;
+  const overlay=$('royal-modal'),card=overlay.querySelector('.royal-modal-card');
+  const accept=$('royal-modal-accept'),cancel=$('royal-modal-cancel');
+  const verify=$('royal-modal-verify'),field=$('royal-modal-code');
+  const previousFocus=document.activeElement;
+  $('royal-modal-title').textContent=title;
+  $('royal-modal-desc').textContent=description;
+  accept.textContent=confirmText;
+  accept.classList.toggle('destructive',destructive);
+  verify.hidden=!verifyCode;
+  field.value='';
+  if(verifyCode)field.placeholder=verifyCode;
+  accept.disabled=!!verifyCode;
+  overlay.hidden=false;
+  overlay.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  return new Promise(resolve=>{
+    const finish=value=>{
+      overlay.hidden=true;
+      overlay.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+      overlay.removeEventListener('keydown',onKey);
+      overlay.removeEventListener('click',onBackdrop);
+      field.removeEventListener('input',onInput);
+      cancel.removeEventListener('click',onCancel);
+      accept.removeEventListener('click',onAccept);
+      modalPending=false;
+      if(previousFocus?.isConnected)previousFocus.focus();
+      resolve(value);
+    };
+    const onInput=()=>{accept.disabled=!!verifyCode && field.value.trim().toUpperCase()!==verifyCode};
+    const onCancel=()=>finish(false);
+    const onAccept=()=>{if(!accept.disabled)finish(true)};
+    const onBackdrop=e=>{if(e.target===overlay)finish(false)};
+    const onKey=e=>{
+      if(e.key==='Escape'){e.preventDefault();finish(false);return}
+      if(e.key==='Tab'){
+        const focusable=[...(verifyCode?[field]:[]),cancel,accept].filter(el=>!el.disabled);
+        const first=focusable[0],last=focusable[focusable.length-1];
+        if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+        else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+      }
+    };
+    field.addEventListener('input',onInput);
+    cancel.addEventListener('click',onCancel);
+    accept.addEventListener('click',onAccept);
+    overlay.addEventListener('keydown',onKey);
+    overlay.addEventListener('click',onBackdrop);
+    (verifyCode?field:cancel).focus();
+  });
+}
+
+const form=$('create-form'),nameInput=$('class-name'),result=$('result'),message=$('message'),createButton=$('create-button'),loginButton=$('teacher-google-login'),loginStatus=$('teacher-login-status');
+const SAVED_KEY='aurilia.teacher.class.codes.v1';
+const ARCHIVED_KEY='aurilia.teacher.archived.codes.v1';
+let signedInTeacher=null,isCreating=false,generatedCode='',selectedCode='',stopClass=null,stopKnights=null,authVersion=0;
+let selectedClassData=null,lastKnightDocs=[],competitionBusy=false;
+const codes=()=>{try{const a=JSON.parse(localStorage.getItem(SAVED_KEY)||'[]');return Array.isArray(a)?a.filter(x=>typeof x==='string'&&/^AU-[A-HJ-NP-Z2-9]{4}$/.test(x)):[]}catch{return[]}};
+function archivedCodes(){try{return JSON.parse(localStorage.getItem(ARCHIVED_KEY)||'[]')}catch{return[]}}
+function setArchived(code,archived){const next=archived?[...new Set([...archivedCodes(),code])]:archivedCodes().filter(c=>c!==code);localStorage.setItem(ARCHIVED_KEY,JSON.stringify(next));renderCodes()}
+function forgetCode(code){localStorage.setItem(SAVED_KEY,JSON.stringify(codes().filter(c=>c!==code)));setArchived(code,false)}
+function rememberCode(code){const all=[code,...codes().filter(x=>x!==code)];localStorage.setItem(SAVED_KEY,JSON.stringify(all.slice(0,50)));renderCodes()}
+function setMessage(element,text,success=false){element.textContent=text;element.style.color=success?'#bce6bc':'#f0b2a5'}
+function clearListeners(){selectedClassData=null;lastKnightDocs=[];renderCompetition();if(stopClass)stopClass();if(stopKnights)stopKnights();stopClass=null;stopKnights=null;selectedCode='';$('selected-class').textContent='Select a classroom to view its Knights.';$('class-status').textContent='NO CLASS';$('live-state').textContent='';$('ranking-body').replaceChildren();$('empty-state').hidden=false;$('empty-state').textContent='No classroom selected yet.';['stat-knights','stat-xp','stat-completed'].forEach(id=>$(id).textContent='0')}
+function renderCodes(){
+  const holder=$('class-list'),archived=$('archive-list');holder.replaceChildren();archived.replaceChildren();
+  if(!signedInTeacher)return;
+  for(const code of codes()){
+    const isArchived=archivedCodes().includes(code);
+    const button=document.createElement('button');button.type='button';button.className='class-choice'+(code===selectedCode?' selected':'');
+    const strong=document.createElement('strong');strong.textContent=code;
+    const small=document.createElement('small');small.textContent=isArchived?'ARCHIVED':code===selectedCode?'VIEWING LIVE':'OPEN CLASSROOM';
+    button.append(strong,small);button.addEventListener('click',()=>openClass(code));
+    (isArchived?archived:holder).appendChild(button);
+  }
+  if(!archived.children.length){const p=document.createElement('p');p.className='small';p.textContent='No archived classrooms.';archived.appendChild(p)}
+}
+onAuthStateChanged(auth,user=>{authVersion++;const google=!!user?.providerData?.some(p=>p.providerId==='google.com');const next=google?user:null;if(next?.uid!==signedInTeacher?.uid){clearListeners()}signedInTeacher=next;createButton.disabled=!next||isCreating;loginButton.hidden=!!next;loginStatus.textContent=next?`Signed in as ${next.email||'Google user'}`:'Sign in with Google to manage your classroom.';if(!next){generatedCode='';result.hidden=true;clearListeners()}renderCodes()});
+loginButton.addEventListener('click',async()=>{loginButton.disabled=true;setMessage(message,'');try{await authReady;await signInTeacher()}catch(error){console.error(error);setMessage(message,'Google Sign-In failed. Please try again.')}finally{loginButton.disabled=false}});
+function makeCode(){const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',bytes=new Uint8Array(4);crypto.getRandomValues(bytes);return 'AU-'+Array.from(bytes,b=>chars[b%chars.length]).join('')}
+async function createClassroom(className,teacher){for(let attempt=0;attempt<8;attempt++){const code=makeCode(),ref=doc(db,'classrooms',code);const created=await runTransaction(db,async tx=>{const existing=await tx.get(ref);if(existing.exists())return false;tx.set(ref,{name:className,teacherId:teacher.uid,status:'scheduled',durationHours:6,createdAt:serverTimestamp()});return true});if(created)return code}throw new Error('Unable to generate a unique class code.')}
+form.addEventListener('submit',async e=>{e.preventDefault();const teacher=signedInTeacher,className=nameInput.value.trim();if(!teacher){setMessage(message,'Please sign in with Google first.');return}if(!className||className.length>50){setMessage(message,'Please enter a valid classroom name.');return}isCreating=true;createButton.disabled=true;createButton.textContent='CREATING CLASSROOM...';result.hidden=true;setMessage(message,'Saving your classroom to Firebase...');try{const code=await createClassroom(className,teacher);generatedCode=code;$('generated-code').textContent=code;$('class-display').textContent='Classroom: '+className;result.hidden=false;rememberCode(code);setMessage(message,'Classroom saved successfully!',true);await openClass(code)}catch(error){console.error(error);setMessage(message,'Unable to create classroom: '+(error.code||error.message))}finally{isCreating=false;createButton.textContent='CREATE CLASSROOM →';createButton.disabled=!signedInTeacher}});
+$('copy-button').addEventListener('click',async()=>{if(!generatedCode)return;try{await navigator.clipboard.writeText(generatedCode);setMessage(message,'Class code copied!',true)}catch{setMessage(message,'Please copy the class code manually.')}});
+$('load-class').addEventListener('click',()=>openClass($('lookup-code').value.trim().toUpperCase()));
+$('lookup-code').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();openClass(e.currentTarget.value.trim().toUpperCase())}});
+const SIX_HOURS_MS=6*60*60*1000;
+function competitionState(){
+  const d=selectedClassData;
+  if(!d)return 'none';
+  if(d.status==='archived')return 'archived';
+  if(d.status==='ended')return 'ended';
+  if(d.status==='scheduled')return 'scheduled';
+  if(d.status!=='active'||!d.startedAt?.toMillis)return 'unknown';
+  return Date.now() >= d.startedAt.toMillis()+SIX_HOURS_MS ? 'expired':'active';
+}
+function formatCountdown(ms){
+  const total=Math.max(0,Math.ceil(ms/1000));
+  return [Math.floor(total/3600),Math.floor((total%3600)/60),total%60].map(v=>String(v).padStart(2,'0')).join(':');
+}
+function renderCompetition(){
+  const state=competitionState(),d=selectedClassData;
+  const clock=$('competition-clock'),details=$('competition-details');
+  const start=$('start-competition'),end=$('end-competition');
+  start.hidden=state!=='scheduled';end.hidden=state!=='active'&&state!=='expired';
+  const archive=$('archive-classroom'),del=$('delete-classroom');
+  archive.hidden=!['scheduled','ended'].includes(state);
+  del.hidden=state!=='archived';
+  archive.disabled=del.disabled=competitionBusy||!signedInTeacher;
+  $('download-results').disabled=!selectedCode||!signedInTeacher;
+  start.disabled=end.disabled=competitionBusy||!signedInTeacher;
+  if(state==='none'){clock.textContent='--:--:--';details.textContent='Select a classroom to manage the competition.'}
+  else if(state==='scheduled'){clock.textContent='06:00:00';details.textContent='Registration open. Students may register now. Practice XP does not enter the official leaderboard.'}
+  else if(state==='active'){clock.textContent=formatCountdown(d.startedAt.toMillis()+SIX_HOURS_MS-Date.now());details.textContent='Competition in progress. All registered Knights are eligible; official XP is tracked live.'}
+  else if(state==='expired'){clock.textContent='00:00:00';details.textContent='Six hours elapsed. New competition XP writes are blocked by Firestore Rules.'}
+  else {clock.textContent='00:00:00';details.textContent=state==='ended'?'Competition ended. Official results are frozen.':state==='archived'?'Archived. Records remain available for export.':'Classroom state unavailable.'}
+  if(d)$('class-status').textContent=(state==='expired'?'EXPIRED':String(d.status||'UNKNOWN')).toUpperCase();
+}
+setInterval(()=>{if(selectedClassData){const before=$('class-status').textContent;renderCompetition();if(before!==$('class-status').textContent)displayKnights(lastKnightDocs)}},1000);
+$('start-competition').addEventListener('click',async()=>{
+  if(!selectedCode||!signedInTeacher||competitionState()!=='scheduled')return;
+  if(!await royalConfirm({title:'Begin the Royal Competition?',description:'The six-hour timer will begin immediately. Registered Knights remain enrolled. Practice XP will reset locally when they reconnect. This cannot be undone.',confirmText:'START COMPETITION'}))return;
+  competitionBusy=true;renderCompetition();setMessage($('competition-message'),'Starting competition...');
+  try{
+    const ref=doc(db,'classrooms',selectedCode),uid=signedInTeacher.uid;
+    await runTransaction(db,async tx=>{const snap=await tx.get(ref);if(!snap.exists()||snap.data().teacherId!==uid||snap.data().status!=='scheduled')throw new Error('Classroom is no longer scheduled.');tx.update(ref,{status:'active',startedAt:serverTimestamp()})});
+    setMessage($('competition-message'),'Competition started. Registered Knights can continue using their existing profiles.',true);
+  }catch(e){console.error(e);setMessage($('competition-message'),'Unable to start: '+(e.code||e.message))}
+  finally{competitionBusy=false;renderCompetition()}
+});
+$('end-competition').addEventListener('click',async()=>{
+  if(!selectedCode||!signedInTeacher||!['active','expired'].includes(competitionState()))return;
+  if(!await royalConfirm({title:'End Competition Early?',description:'Official XP submissions will stop. Existing results will be preserved for viewing and download.',confirmText:'END COMPETITION',destructive:true}))return;
+  competitionBusy=true;renderCompetition();
+  try{await updateDoc(doc(db,'classrooms',selectedCode),{status:'ended',endedAt:serverTimestamp()});setMessage($('competition-message'),'Competition ended.',true)}
+  catch(e){console.error(e);setMessage($('competition-message'),'Unable to end: '+(e.code||e.message))}
+  finally{competitionBusy=false;renderCompetition()}
+});
+function displayKnights(docs){lastKnightDocs=docs;
+  const state=competitionState(),start=selectedClassData?.startedAt?.toMillis?.();
+  const eligible=state!=='scheduled'&&start!=null;
+  const filtered=docs; // Pre-START registrations remain eligible after START; their official XP begins at zero.
+  const knights=filtered.map(s=>({id:s.id,...s.data()})).sort((a,b)=>(Number(b.totalXP)||0)-(Number(a.totalXP)||0)||(a.createdAt?.seconds||0)-(b.createdAt?.seconds||0)||a.id.localeCompare(b.id));$('stat-knights').textContent=String(knights.length);$('stat-xp').textContent=String(knights.length?Number(knights[0].totalXP)||0:0);$('stat-completed').textContent=String(knights.reduce((sum,k)=>sum+(Number(k.completedTrials)||0),0));const body=$('ranking-body');body.replaceChildren();$('empty-state').hidden=knights.length>0;if(!knights.length)$('empty-state').textContent=eligible?'No Knights have registered for this competition yet.':'No Knights have registered in this classroom yet.';knights.forEach((knight,index)=>{const tr=document.createElement('tr');const place=document.createElement('td');place.textContent=String(index+1);const name=document.createElement('td');const strong=document.createElement('strong');strong.textContent=String(knight.playerName||'Unknown Knight');const rank=document.createElement('div');rank.className='rank';rank.textContent=String(knight.rank||'Royal Candidate');name.append(strong,rank);const completed=document.createElement('td');completed.textContent=`${Math.max(0,Math.min(4,Number(knight.completedTrials)||0))}/4`;const xp=document.createElement('td');xp.textContent=`${Math.max(0,Number(knight.totalXP)||0)} XP`;tr.append(place,name,completed,xp);body.appendChild(tr)})}
+// Export the currently selected classroom records, including Knights registered before START.
+// Protect CSV cells against spreadsheet formula injection.
+function csvCell(value) {
+  let text = String(value ?? '');
+  if (/^[\s]*[=+@-]/.test(text)) text = "'" + text;
+  return '"' + text.replace(/"/g, '""') + '"';
+}
+// Always export a fresh server snapshot, not potentially stale on-screen rows.
+$('download-results').addEventListener('click', async () => {
+  if (!selectedCode || !signedInTeacher || !selectedClassData) return;
+  const button = $('download-results');
+  const code = selectedCode;
+  const teacherUid = signedInTeacher.uid;
+  button.disabled = true;
+  button.textContent = 'PREPARING RESULTS...';
+  setMessage($('competition-message'), 'Retrieving latest Knight records from Firebase...');
+  try {
+    const classSnap = await getDoc(doc(db, 'classrooms', code));
+    if (!classSnap.exists() || classSnap.data().teacherId !== teacherUid) {
+      throw new Error('Classroom unavailable or teacher access denied.');
+    }
+    const info = classSnap.data();
+    const state = info.status === 'active' && info.startedAt?.toMillis?.() + SIX_HOURS_MS <= Date.now()
+      ? 'expired' : info.status;
+    const snap = await getDocs(collection(db, 'classrooms', code, 'knights'));
+    const rows = snap.docs.map(s => ({ id: s.id, ...s.data() }))
+      .sort((a,b) => (Number(b.totalXP)||0)-(Number(a.totalXP)||0) || a.id.localeCompare(b.id));
+    const headers = [
+      'Position','Knight Name','Knight ID','Class Code','Rank','Total XP',
+      'Summons Bonus','Completed Trials',
+      'Game 1 XP','Game 1 Completed','Game 2 XP','Game 2 Completed',
+      'Game 3 XP','Game 3 Completed','Game 4 XP','Game 4 Completed',
+      'Class Status','Exported At'
+    ];
+    const now = new Date().toISOString();
+    const values = rows.map((k,i) => [
+      i+1,k.playerName,k.knightId||k.id,code,k.rank,
+      Number(k.totalXP)||0,Number(k.summonsBonus)||0,Number(k.completedTrials)||0,
+      ...['game01','game02','game03','game04'].flatMap(key => [
+        Number(k.trials?.[key]?.xp)||0,
+        k.trials?.[key]?.completed===true?'Yes':'No'
+      ]),
+      state,now
+    ]);
+    const csv = '\uFEFF' + [headers,...values].map(row=>row.map(csvCell).join(',')).join('\r\n');
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `Aurilia_${code}_${state}_Results_${now.slice(0,10)}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 3000);
+    setMessage($('competition-message'),
+      `Downloaded ${rows.length} Knight record(s) from Firebase.`, true);
+  } catch (error) {
+    console.error('[Aurilia] Results export failed:', error);
+    setMessage($('competition-message'),
+      'Download failed: ' + (error.code || error.message));
+  } finally {
+    button.textContent = 'DOWNLOAD RESULTS (.CSV)';
+    renderCompetition();
+  }
+});
+$('archive-classroom').addEventListener('click',async()=>{
+  if(!signedInTeacher||!selectedCode||!['scheduled','ended'].includes(competitionState()))return;
+  if(!await royalConfirm({title:'Archive This Classroom?',description:'Classroom: '+(selectedClassData?.name||selectedCode)+' ('+selectedCode+')\nKnight records, XP and results will be preserved. New registration and XP submissions will be closed. Results remain available for download.',confirmText:'ARCHIVE CLASSROOM'}))return;
+  competitionBusy=true;renderCompetition();
+  try{
+    await updateDoc(doc(db,'classrooms',selectedCode),{status:'archived',archivedAt:serverTimestamp()});
+    setArchived(selectedCode,true);
+    setMessage($('competition-message'),'Classroom archived. Results are preserved.',true);
+  }catch(e){console.error(e);setMessage($('competition-message'),'Archive failed: '+(e.code||e.message))}
+  finally{competitionBusy=false;renderCompetition()}
+});
+$('delete-classroom').addEventListener('click',async()=>{
+  if(!signedInTeacher||!selectedCode||competitionState()!=='archived')return;
+  const code=selectedCode;
+  if(!await royalConfirm({title:'Permanently Delete Classroom?',description:'WARNING: This permanently removes classroom '+code+' and ALL Knight records and results. Download the CSV first if you need a copy. This action cannot be undone.',confirmText:'DELETE PERMANENTLY',destructive:true,verifyCode:code}))return;
+  competitionBusy=true;renderCompetition();
+  try{
+    const classRef=doc(db,'classrooms',code);
+    const check=await getDoc(classRef);
+    if(!check.exists()||check.data().teacherId!==signedInTeacher.uid||check.data().status!=='archived')throw new Error('Only your archived classroom can be deleted.');
+    // Firestore does NOT cascade delete. Remove children in batches first.
+    // If interrupted, rerun DELETE; the remaining records can still be removed.
+    const knightCollection=collection(db,'classrooms',code,'knights');
+    while(true){
+      const snapshot=await getDocs(knightCollection);
+      if(snapshot.empty)break;
+      const batch=writeBatch(db);
+      for(const record of snapshot.docs.slice(0,400))batch.delete(record.ref);
+      await batch.commit();
+      setMessage($('competition-message'),'Removing Knight records...');
+    }
+    await deleteDoc(classRef);
+    clearListeners();forgetCode(code);renderCodes();
+    setMessage($('lookup-message'),'Classroom '+code+' permanently deleted.',true);
+  }catch(e){console.error(e);setMessage($('competition-message'),'Delete incomplete: '+(e.code||e.message)+'. The archived class can be retried.')}
+  finally{competitionBusy=false;renderCompetition()}
+});
+async function openClass(code){if(!signedInTeacher){setMessage($('lookup-message'),'Please sign in with Google first.');return}if(!/^AU-[A-HJ-NP-Z2-9]{4}$/.test(code)){setMessage($('lookup-message'),'Enter a valid class code (AU-XXXX).');return}const teacherUid=signedInTeacher.uid,version=authVersion;setMessage($('lookup-message'),'Loading classroom...');try{const ref=doc(db,'classrooms',code),snap=await getDoc(ref);if(version!==authVersion||signedInTeacher?.uid!==teacherUid)return;if(!snap.exists()){setMessage($('lookup-message'),'Classroom not found.');return}if(snap.data().teacherId!==teacherUid){setMessage($('lookup-message'),'This classroom belongs to another teacher.');return}clearListeners();selectedCode=code;rememberCode(code);$('lookup-code').value=code;const info=snap.data();selectedClassData=info;renderCompetition();$('selected-class').textContent=`${info.name||'Royal Classroom'} · ${code}`;$('class-status').textContent=String(info.status||'scheduled').toUpperCase();$('empty-state').textContent='Loading Knight records...';$('live-state').textContent='CONNECTING...';setMessage($('lookup-message'),'Classroom opened.',true);
+stopClass=onSnapshot(ref,s=>{if(selectedCode!==code)return;if(s.exists()){selectedClassData=s.data();if(s.data().status==='archived')setArchived(code,true);renderCompetition();displayKnights(lastKnightDocs);$('selected-class').textContent=`${s.data().name||'Royal Classroom'} · ${code}`} },error=>{console.error(error);$('live-state').textContent='CLASS STATUS ERROR'});
+stopKnights=onSnapshot(collection(db,'classrooms',code,'knights'),snapshot=>{if(selectedCode!==code)return;displayKnights(snapshot.docs);$('live-state').textContent='● LIVE UPDATES'},error=>{console.error('Leaderboard listener failed:',error);$('live-state').textContent='SYNC ERROR';$('empty-state').hidden=false;$('empty-state').textContent=error.code==='permission-denied'?'Permission denied. Publish the Step 13 Firestore Rules addition.':'Unable to load leaderboard. Check the Console.'});
+}catch(error){console.error(error);setMessage($('lookup-message'),'Unable to open classroom: '+(error.code||error.message))}}
+</script></body></html>

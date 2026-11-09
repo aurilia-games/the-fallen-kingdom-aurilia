@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090f">
+
+  <title>Royal Archives | The Fallen Kingdom</title>
+
+  <link rel="stylesheet" href="css/quest.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="../knight-system.js"></script>
+  <script src="js/quest.js" defer></script>
+</head>
+
+<body>
+  <main id="campaign">
+
+    <!-- CINEMATIC BACKGROUND -->
+    <div class="world-background" aria-hidden="true">
+      <div class="world-image"></div>
+      <div class="world-vignette"></div>
+      <div class="world-light"></div>
+      <div class="world-fog fog-one"></div>
+      <div class="world-fog fog-two"></div>
+      <canvas id="embers"></canvas>
+      <div class="film-grain"></div>
+    </div>
+
+    <!-- TOP NAVIGATION -->
+    <header class="topbar">
+      <a class="brand" href="../index.html" aria-label="Return to Aurilia">
+        <span class="brand-symbol">✦</span>
+        <span>
+          <strong>AURILIA</strong>
+          <small>THE FALLEN KINGDOM</small>
+        </span>
+      </a>
+
+      <div class="chapter-label">
+        <span class="chapter-dot"></span>
+        ROYAL ARCHIVES · CLASSIFIED TRIALS
+      </div>
+
+      <a class="return-link" href="../index.html">
+        <span>←</span>
+        <span>RETURN TO STORY</span>
+      </a>
+    </header>
+
+    <!-- CAMPAIGN INTRODUCTION -->
+    <section class="intro">
+      <div class="intro-copy">
+        <p class="eyebrow reveal reveal-one">
+          THE KINGDOM HAS NOT FORGOTTEN
+        </p>
+
+        <h1 class="reveal reveal-two">
+          THE ROYAL
+          <span class="title-second">
+            ARCHIVES<span class="title-period">.</span>
+          </span>
+        </h1>
+
+        <p class="intro-description reveal reveal-three">
+          Four trials remain buried beneath the ruins of Aurilia.
+          Recover the lost knowledge, restore the royal seals,
+          and discover the truth behind the fallen kingdom.
+        </p>
+
+        <div class="campaign-info reveal reveal-four">
+          <div class="info-block">
+          <span class="info-label">KNIGHT RANK</span>
+          <strong id="knight-rank">Royal Candidate</strong>
+        </div>
+
+        <div class="info-divider"></div>
+
+        <div class="info-block">
+          <span class="info-label">TOTAL XP</span>
+          <strong id="total-xp">0 <small>/ 515 XP</small></strong>
+        </div>
+
+          <div class="info-divider"></div>
+
+          <div class="info-block">
+            <span class="info-label">ROYAL RECORD</span>
+            <strong id="discovered-count">
+              00 <small>/ 04</small>
+            </strong>
+          </div>
+
+          <div class="info-divider"></div>
+
+          <div class="info-block">
+            <span class="info-label">KINGDOM STATUS</span>
+            <strong class="status-fallen">
+              <span></span> FALLEN
+            </strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUR MISSIONS -->
+    <section class="location-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">SELECT YOUR DESTINATION</p>
+          <h2>The Four Royal Trials</h2>
+        </div>
+
+        <p class="section-hint">
+          <span class="hint-desktop">
+            SELECT A LOCATION TO EXAMINE ITS RECORD
+          </span>
+          <span class="hint-mobile">
+            TAP A LOCATION TO BEGIN
+          </span>
+        </p>
+      </div>
+
+      <div class="location-grid">
+
+        <!-- MISSION 01 -->
+        <button
+          class="location-card location-one"
+          type="button"
+          data-location="grounds"
+          aria-pressed="false"
+        >
+          <img
+            class="location-image"
+            src="../assets/fallen-kingdom.webp"
+            alt="The ruined courtyard of Aurilia"
+          >
+
+          <span class="location-wash"></span>
+
+          <span class="location-coordinate">
+            SECTOR <i>01</i> / WESTERN RUINS
+          </span>
+
+          <span class="location-bottom">
+            <span class="location-number">01</span>
+            <span class="location-title-wrap">
+              <span class="location-kicker">THE FIRST TRIAL</span>
+              <span class="location-name">The Shattered Grounds</span>
+              <span class="location-subtitle">Restore the lost squares</span>
+            </span>
+            <span class="location-arrow">↗</span>
+          </span>
+
+          <span class="location-edge"></span>
+        </button>
+
+        <!-- MISSION 02 -->
+        <button
+          class="location-card location-two"
+          type="button"
+          data-location="forge"
+          aria-pressed="false"
+        >
+          <img
+            class="location-image"
+            src="../assets/royal-court.webp"
+            alt="An ancient royal structure"
+          >
+
+          <span class="location-wash"></span>
+
+          <span class="location-coordinate">
+            SECTOR <i>02</i> / LOWER KINGDOM
+          </span>
+
+          <span class="location-bottom">
+            <span class="location-number">02</span>
+            <span class="location-title-wrap">
+              <span class="location-kicker">THE SECOND TRIAL</span>
+              <span class="location-name">The Royal Forge</span>
+              <span class="location-subtitle">Rebuild the ancient machine</span>
+            </span>
+            <span class="location-arrow">↗</span>
+          </span>
+
+          <span class="location-edge"></span>
+        </button>
+
+        <!-- MISSION 03 -->
+        <button
+          class="location-card location-three"
+          type="button"
+          data-location="bridge"
+          aria-pressed="false"
+        >
+          <img
+            class="location-image"
+            src="../assets/star-dragon.png"
+            alt="A mysterious passage through the ruins"
+          >
+
+          <span class="location-wash"></span>
+
+          <span class="location-coordinate">
+            SECTOR <i>03</i> / THE ABYSS
+          </span>
+
+          <span class="location-bottom">
+            <span class="location-number">03</span>
+            <span class="location-title-wrap">
+              <span class="location-kicker">THE THIRD TRIAL</span>
+              <span class="location-name">The Lost Root Bridge</span>
+              <span class="location-subtitle">Restore the missing passage</span>
+            </span>
+            <span class="location-arrow">↗</span>
+          </span>
+
+          <span class="location-edge"></span>
+        </button>
+
+        <!-- MISSION 04 -->
+        <button
+          class="location-card location-four"
+          type="button"
+          data-location="throne"
+          aria-pressed="false"
+        >
+          <img
+            class="location-image"
+            src="../assets/royal-court.webp"
+            alt="The ruined royal court"
+          >
+
+          <span class="location-wash"></span>
+
+          <span class="location-coordinate">
+            SECTOR <i>04</i> / INNER SANCTUM
+          </span>
+
+          <span class="location-bottom">
+            <span class="location-number">04</span>
+            <span class="location-title-wrap">
+              <span class="location-kicker">THE FINAL TRIAL</span>
+              <span class="location-name">The Betrayer's Throne</span>
+              <span class="location-subtitle">Face the final confrontation</span>
+            </span>
+            <span class="location-arrow">↗</span>
+          </span>
+
+          <span class="location-edge"></span>
+        </button>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <span class="footer-crest">✦</span>
+      <span>THE ROYAL ARCHIVES · AURILIA</span>
+      <span class="footer-crest">✦</span>
+    </footer>
+
+    <!-- MISSION BRIEFING MODAL -->
+    <section
+      class="briefing"
+      id="briefing"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="briefing-title"
+      aria-hidden="true"
+    >
+      <button
+        class="briefing-close"
+        id="briefing-close"
+        type="button"
+        aria-label="Close mission briefing"
+      >×</button>
+
+      <div
+        class="briefing-image"
+        id="briefing-image"
+        role="img"
+        aria-label="Mission environment"
+      >
+        <div class="briefing-image-shade"></div>
+
+        <span class="briefing-chapter" id="briefing-chapter">
+          ROYAL ARCHIVE · TRIAL 01
+        </span>
+      </div>
+
+      <div class="briefing-content">
+        <p class="eyebrow" id="briefing-eyebrow">
+          THE BROKEN COURTYARD
+        </p>
+
+        <h2 id="briefing-title">The Shattered Grounds</h2>
+
+        <p
+          class="briefing-description"
+          id="briefing-description"
+        ></p>
+
+        <div class="briefing-objective">
+          <span class="objective-icon">✦</span>
+          <div>
+            <span class="info-label">MISSION OBJECTIVE</span>
+            <strong id="briefing-objective"></strong>
+          </div>
+        </div>
+
+        <div class="briefing-tags">
+          <span id="briefing-standard">DSKP 3.1.2</span>
+          <span id="briefing-style">EXPLORATION & MOVEMENT</span>
+        </div>
+
+        <p class="briefing-note" id="briefing-note"></p>
+
+        <button
+          class="briefing-enter"
+          id="briefing-enter"
+          type="button"
+        >
+          <span>ENTER THE TRIAL</span>
+          <span>→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- INTERFACE EFFECTS -->
+    <button
+      class="sound-toggle"
+      id="sound-toggle"
+      type="button"
+      aria-pressed="false"
+    >
+      <span class="sound-icon" aria-hidden="true">♫</span>
+      <span id="sound-label">SOUND OFF</span>
+    </button>
+
+    <div
+      class="toast"
+      id="toast"
+      role="status"
+      aria-live="polite"
+    ></div>
+
+    <div class="selection-flash" id="selection-flash"></div>
+
+  </main>
+</body>
+</html>
